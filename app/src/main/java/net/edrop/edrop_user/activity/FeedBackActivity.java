@@ -83,7 +83,7 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        new SystemTransUtil().transform(FeedBackActivity.this);
+        new SystemTransUtil().trans(FeedBackActivity.this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback_main);
         findViews();
