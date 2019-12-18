@@ -94,7 +94,13 @@ public class Main2Activity extends AppCompatActivity {
                             startActivity(intent);
                         }
                     });
-            adBuilder.setNegativeButton("取消", null);
+            adBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener(){
+
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(Main2Activity.this,"您不完善信息，后续工作将无法进行",Toast.LENGTH_SHORT).show();
+                }
+            });
             AlertDialog alertDialog = adBuilder.create();// 通过构造器创建AlertDialog
             alertDialog.setCancelable(false);// 设置对话框不能被取消（点击界面其它地方，对话框自动关闭）
             alertDialog.show();
