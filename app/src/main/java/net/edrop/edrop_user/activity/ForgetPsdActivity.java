@@ -76,14 +76,14 @@ public class ForgetPsdActivity extends AppCompatActivity implements SeekBar.OnSe
                 int event = msg.arg1;
                 int result = msg.arg2;
                 Object data = msg.obj;
-                Log.e("event", "event=" + event);
+//                Log.e("event", "event=" + event);
                 if (event==3){
                     llpsd1.setVisibility(View.VISIBLE); // 显示
                     llpsd2.setVisibility(View.VISIBLE); // 显示
                     Toast.makeText(getApplicationContext(), "验证通过", Toast.LENGTH_SHORT).show();
                 }
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    Log.e("result", result + "");
+//                    Log.e("result", result + "");
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {// 提交验证码成功
                         Toast.makeText(getApplicationContext(), "提交验证码成功", Toast.LENGTH_SHORT).show();
                     } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {

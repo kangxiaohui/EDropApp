@@ -79,7 +79,7 @@ public class LoadingActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100 && resultCode == RESULT_OK){
-            Log.e("拍照测试", "拍照成功");
+//            Log.e("拍照测试", "拍照成功");
             bitmap = (Bitmap) data.getExtras().get("data");//获取拍取的照片
 
             //BitMap转成文件
@@ -132,7 +132,7 @@ public class LoadingActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String success = response.body().string();
-                Log.e("11111", success);
+//                Log.e("11111", success);
                 byte[] buf = new byte[1024];
                 buf=Bitmap2Bytes(bitmap);
                 Intent intent = new Intent(LoadingActivity.this,RecognitionResultActivity.class);

@@ -115,7 +115,7 @@ public class TestPhoneNumActivity extends Activity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.e("response", responseJson);
+//                Log.e("response", responseJson);
             }
         });
 

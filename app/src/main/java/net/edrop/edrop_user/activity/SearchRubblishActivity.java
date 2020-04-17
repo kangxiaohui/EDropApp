@@ -223,13 +223,13 @@ public class SearchRubblishActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String jsonStr = response.body().string();
-                Log.e("test", jsonStr);
+//                Log.e("test", jsonStr);
                 if (jsonStr.length()==0){
                     Toast.makeText(SearchRubblishActivity.this,"系统正在升级，该垃圾不能识别",Toast.LENGTH_SHORT).show();
                 }
                 rubbishList = new Gson().fromJson(jsonStr, new TypeToken<List<Rubbish>>() {
                 }.getType());
-                Log.e("test", rubbishList.toString());
+//                Log.e("test", rubbishList.toString());
                 int count = 0;
                 for (Rubbish rubbish : rubbishList) {
                     if (count < 5) {

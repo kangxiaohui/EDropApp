@@ -86,7 +86,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     editor.commit();
                     //显示PopupWindow
                     showPopupWindow(position);
-                    Log.e("test", dataSource.get(position).toString());
+//                    Log.e("test", dataSource.get(position).toString());
                 }
             }
         });

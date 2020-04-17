@@ -385,7 +385,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     editor.commit();
                                     Message msg = new Message();
                                     msg.obj = response;
-                                    Log.e("qq", "................" + response.toString());
+//                                    Log.e("qq", "................" + response.toString());
                                     msg.what = 9;
                                     mHandler.sendMessage(msg);
                                 }
@@ -394,7 +394,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                     @Override
                     public void onCancel() {
-                        Log.e("qq", "登录取消..");
+//                        Log.e("qq", "登录取消..");
                     }
                 };
                 userInfo = new UserInfo(LoginActivity.this, mTencent.getQQToken());
@@ -453,7 +453,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onResponse(Call call, Response response) throws IOException {
 //                Log.e("异步get请求结果", response.body().string());
                 String responseJson = response.body().string();
-                Log.e("response", responseJson);
+//                Log.e("response", responseJson);
                 try {
                     JSONObject jsonObject = new JSONObject(responseJson);
                     String state = jsonObject.getString("state");

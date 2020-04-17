@@ -4,66 +4,46 @@
     android:layout_height="match_parent"
     android:background="#EEEEEE"
     android:orientation="vertical">
+
     <View
-        android:background="#32BA88"
         android:layout_width="match_parent"
-        android:layout_height="25dp"/>
+        android:layout_height="25dp"
+        android:background="#32BA88" />
+
     <LinearLayout
-        android:background="#32BA88"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_45">
+        android:layout_height="@dimen/size_45"
+        android:background="#32BA88"
+        android:orientation="horizontal">
+
         <ImageView
             android:id="@+id/ivBack"
-            android:src="@drawable/left"
             android:layout_width="@dimen/size_25"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:src="@drawable/left" />
+
         <TextView
             android:id="@+id/chat_nav"
-            android:gravity="center"
-            android:layout_marginLeft="@dimen/size_10"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/size_10"
+            android:gravity="center" />
     </LinearLayout>
-    <android.support.v4.widget.DrawerLayout
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp">
+
+    <!--<android.support.v4.widget.DrawerLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1">-->
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recylerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
-    </android.support.v4.widget.DrawerLayout>
+    <!--</android.support.v4.widget.DrawerLayout>-->
     <!--底部-->
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/fl_emotionview_main"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="#EEEEEE"
-        android:orientation="horizontal"
-        android:padding="4dp">
-
-        <EditText
-            android:id="@+id/etContent"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="4dp"
-            android:layout_weight="5"
-            android:paddingLeft="4dp"
-            android:textSize="14sp"
-            android:background="@drawable/bg_et" />
-
-        <TextView
-            android:id="@+id/tvSend"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_send"
-            android:gravity="center"
-            android:padding="6dp"
-            android:text="发送"
-            android:textColor="#FFFFFF"
-            android:textSize="10sp" />
-    </LinearLayout>
+        android:layout_height="wrap_content" />
 </LinearLayout>

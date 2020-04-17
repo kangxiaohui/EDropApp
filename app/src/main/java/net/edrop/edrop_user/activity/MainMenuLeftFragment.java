@@ -7,12 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,13 +24,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 
 import net.edrop.edrop_user.R;
-import net.edrop.edrop_user.entity.User;
 import net.edrop.edrop_user.entity.Wallet;
 import net.edrop.edrop_user.utils.Constant;
 import net.edrop.edrop_user.utils.ShareAppToOther;
@@ -41,7 +36,6 @@ import net.edrop.edrop_user.utils.SharedPreferencesUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -83,7 +77,7 @@ public class MainMenuLeftFragment extends Fragment {
                         .apply(options)
                         .into(userImg);
             } else if (msg.what == 1) {
-                Intent intent = new Intent(myView.getContext(), ShowOrders.class);
+                Intent intent = new Intent(myView.getContext(), ShowOrdersActivity.class);
                 String str = (String) msg.obj;
                 intent.putExtra("orderjson", str);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

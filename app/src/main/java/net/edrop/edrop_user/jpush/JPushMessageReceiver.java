@@ -11,9 +11,9 @@ public class JPushMessageReceiver extends cn.jpush.android.service.JPushMessageR
     //通知消息到达时回调
     public void onNotifyMessageArrived(Context context, NotificationMessage notificationMessage) {
         super.onNotifyMessageArrived(context, notificationMessage);
-        Log.e("接收到通知","通知标题："+notificationMessage.notificationTitle+
-                "---通知内容："+notificationMessage.notificationContent+
-                "---附加信息："+notificationMessage.notificationExtras);
+//        Log.e("接收到通知","通知标题："+notificationMessage.notificationTitle+
+//                "---通知内容："+notificationMessage.notificationContent+
+//                "---附加信息："+notificationMessage.notificationExtras);
     }
 
     @Override

@@ -39,7 +39,7 @@ public class ImageCarousel {
         this.tvTitle = tvTitle;
         this.dots = dots;
         this.time = time;
-        Log.e("image", "构造方法");
+//        Log.e("image", "构造方法");
     }
 
 
@@ -54,7 +54,7 @@ public class ImageCarousel {
     public ImageCarousel init(List<SimpleDraweeView> simpleDraweeViewList, String[] titles) {
         this.simpleDraweeViewList = simpleDraweeViewList;
         this.titles = titles;
-        Log.e("image", "init");
+//        Log.e("image", "init");
         autoPlayThread = new AutoPlayThread();
 
         return this;
@@ -136,7 +136,7 @@ public class ImageCarousel {
 
     public void stopAutoPlay() {
         if (autoPlayThread != null) {
-            Log.e("thrad", "暂停");
+//            Log.e("thrad", "暂停");
             isExit = true;
             autoPlayThread.interrupt();
             autoPlayThread = null;
@@ -147,7 +147,7 @@ public class ImageCarousel {
      * 请求继续
      */
     public void startAutoPlay() {
-        Log.e("thrad", "开始");
+//        Log.e("thrad", "开始");
         isExit = false;
         autoPlayThread = null;
         autoPlayThread = new AutoPlayThread();
@@ -165,7 +165,7 @@ public class ImageCarousel {
                 try {
                     Thread.sleep(time);
                 } catch (InterruptedException e) {
-                    Log.e("thrad", "强制请求退出线程");
+//                    Log.e("thrad", "强制请求退出线程");
                     break;
                 }
                 ((Activity) context).runOnUiThread(new Runnable() {
@@ -176,7 +176,7 @@ public class ImageCarousel {
                 });
 
                 if (this.interrupted()) {
-                    Log.e("thrad", "已经是停止状态了，我要退出了");
+//                    Log.e("thrad", "已经是停止状态了，我要退出了");
                     break;
                 }
             }

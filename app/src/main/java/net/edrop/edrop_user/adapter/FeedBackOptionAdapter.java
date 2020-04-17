@@ -112,7 +112,7 @@ public class FeedBackOptionAdapter extends BaseAdapter {
                 intent.putExtra("msg", str);
                 /*发生intent请求*/
                 context.startActivity(intent);
-                Log.e("信息", str);
+//                Log.e("信息", str);
             }
         });
         return convertView;

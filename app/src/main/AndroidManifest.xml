@@ -94,13 +94,13 @@
         <activity
             android:name=".activity.RecognitionResultActivity"
             android:label="@string/title_activity_recognition_result" />
-        <activity android:name=".activity.ChatViewActivity" />
+        <activity android:name=".activity.ChatViewActivity"/>
         <activity android:name=".activity.LoadingActivity" />
         <activity android:name=".activity.TestPhoneNumActivity" />
         <activity android:name=".activity.FeedBackActivity" />
-        <activity android:name=".activity.FeedBackOption" />
+        <activity android:name=".activity.FeedBackOptionActivity" />
         <activity android:name=".activity.ImmediateAppointmentActivity" />
-        <activity android:name=".activity.ShowOrders" />
+        <activity android:name=".activity.ShowOrdersActivity" />
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.VersionActivity" />
         <activity android:name=".activity.ClearCacheActivity" />

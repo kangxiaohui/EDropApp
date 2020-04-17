@@ -69,7 +69,7 @@ public class Answer2Activity extends AppCompatActivity {
             currentNum.setText(10 + "");
         }
         a++;
-        Log.e("a", a + "");
+//        Log.e("a", a + "");
         judge();
         List<Competition> oldList = myAdapter.getData();
         DiffUtil.DiffResult result = DiffUtil.calculateDiff(new MyCallBack(oldList, lists), true);

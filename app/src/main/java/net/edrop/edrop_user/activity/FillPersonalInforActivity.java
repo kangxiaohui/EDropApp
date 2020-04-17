@@ -344,7 +344,7 @@ public class FillPersonalInforActivity extends AppCompatActivity implements Easy
             } else {
                 photoPath = uri.getEncodedPath();
             }
-            Log.e("拍照返回图片路径:", photoPath);
+//            Log.e("拍照返回图片路径:", photoPath);
             RequestOptions options = new RequestOptions().centerCrop();
             Glide.with(this).load(photoPath).apply(options).into(ivHeadImg);
 

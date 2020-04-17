@@ -21,7 +21,7 @@ import java.util.List;
  * Time: 14:33
  * TODO：反馈的详细类别选项页面
  */
-public class FeedBackOption extends AppCompatActivity {
+public class FeedBackOptionActivity extends AppCompatActivity {
     private ListView listView;
     private ImageView imageView;
     private List data;
@@ -29,7 +29,7 @@ public class FeedBackOption extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        new SystemTransUtil().transform(FeedBackOption.this);
+        new SystemTransUtil().transform(FeedBackOptionActivity.this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback_option);
         initData();

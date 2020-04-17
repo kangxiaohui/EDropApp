@@ -97,7 +97,7 @@ public class RecognitionAdapter extends BaseAdapter {
                 if (popupWindow == null || !popupWindow.isShowing()) {
                     //显示PopupWindow
                     showPopupWindow(position);
-                    Log.e("test", dataSource.get(position).toString());
+//                    Log.e("test", dataSource.get(position).toString());
                 }
             }
         });

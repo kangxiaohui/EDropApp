@@ -50,8 +50,8 @@ public class CustomAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder = null;
-        Log.e("myanswer", "" + hisAnswerLists.toString());
-        Log.e("datasorce", "" + dataSource.toString());
+//        Log.e("myanswer", "" + hisAnswerLists.toString());
+//        Log.e("datasorce", "" + dataSource.toString());
         if (view == null) {
             view = LayoutInflater.from(context).inflate(item_layout_id, null);
             viewHolder = new ViewHolder();

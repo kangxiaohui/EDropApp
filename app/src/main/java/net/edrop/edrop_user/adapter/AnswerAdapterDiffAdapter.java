@@ -36,7 +36,7 @@ public class AnswerAdapterDiffAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        Log.e("ref", "position: " + position);
+//        Log.e("ref", "position: " + position);
         MyViewHolder myViewHolder = (MyViewHolder) viewHolder;
         Competition bean = getItem(position);
         myViewHolder.tv.setText(bean.getQuestion() + "." + bean.getId());
@@ -48,7 +48,7 @@ public class AnswerAdapterDiffAdapter extends RecyclerView.Adapter {
     }
 
     public void submitList(List<Competition> data) {
-        Log.e("ljc ", data.toString());
+//        Log.e("ljc ", data.toString());
         mTextDiffl.submitList(data);
     }
 

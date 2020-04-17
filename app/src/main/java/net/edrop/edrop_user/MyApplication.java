@@ -23,6 +23,7 @@ import cn.jpush.android.api.JPushInterface;
 
 public class MyApplication extends Application {
     private static Application instance2;
+    private static MyApplication mInstance;
 
     @Override
     public void onCreate() {
@@ -68,5 +69,16 @@ public class MyApplication extends Application {
             }
         }
         return processName;
+    }
+
+    /**
+     * 获取context
+     * @return
+     */
+    public static Context getInstance() {
+        if (mInstance == null) {
+            mInstance = new MyApplication();
+        }
+        return mInstance;
     }
 }

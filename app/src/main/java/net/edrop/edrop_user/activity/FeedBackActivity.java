@@ -125,7 +125,7 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             //选项选择
             case R.id.ll_feedback:
-                intent = new Intent(FeedBackActivity.this, FeedBackOption.class);
+                intent = new Intent(FeedBackActivity.this, FeedBackOptionActivity.class);
                 startActivity(intent);
                 break;
             case R.id.im_feedback_smile: // 表情按钮

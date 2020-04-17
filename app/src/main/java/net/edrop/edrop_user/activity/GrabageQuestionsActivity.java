@@ -43,15 +43,15 @@ public class GrabageQuestionsActivity extends AppCompatActivity {
             if (msg.what == 10) {
                 List<Competition> competitions = new Gson().fromJson((String) msg.obj, new TypeToken<List<Competition>>() {
                 }.getType());
-                Log.e("obj", (String) msg.obj);
+//                Log.e("obj", (String) msg.obj);
                 for (int i = 0; i < competitions.size(); i++) {
                     Competition competition = competitions.get(i);
                     lists.add(competition);
-                    Log.e("添加：", i + "" + competition.toString());
+//                    Log.e("添加：", i + "" + competition.toString());
                 }
                 Intent intent = new Intent(GrabageQuestionsActivity.this, Answer2Activity.class);
                 intent.putExtra("lists", (Serializable) lists);
-                Log.e("===================", lists.toString());
+//                Log.e("===================", lists.toString());
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_in_right, R.anim.anim_out_left);
@@ -85,7 +85,7 @@ public class GrabageQuestionsActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String responseJson = response.body().string();
-                        Log.e("response", responseJson);
+//                        Log.e("response", responseJson);
                         Message message = new Message();
                         message.what = 10;
                         message.obj = responseJson;
