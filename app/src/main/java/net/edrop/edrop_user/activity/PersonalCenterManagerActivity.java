@@ -21,8 +21,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
-import com.hyphenate.EMCallBack;
-import com.hyphenate.chat.EMClient;
 
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.entity.User;
@@ -180,26 +178,26 @@ public class PersonalCenterManagerActivity extends AppCompatActivity {
          * 退出环信登录
          */
         private void getLoginExit() {
-            EMClient.getInstance().logout(true, new EMCallBack() {
-
-                @Override
-                public void onSuccess() {
-                    // TODO Auto-generated method stub
-
-                }
-
-                @Override
-                public void onProgress(int progress, String status) {
-                    // TODO Auto-generated method stub
-
-                }
-
-                @Override
-                public void onError(int code, String message) {
-                    // TODO Auto-generated method stub
-
-                }
-            });
+//            EMClient.getInstance().logout(true, new EMCallBack() {
+//
+//                @Override
+//                public void onSuccess() {
+//                    // TODO Auto-generated method stub
+//
+//                }
+//
+//                @Override
+//                public void onProgress(int progress, String status) {
+//                    // TODO Auto-generated method stub
+//
+//                }
+//
+//                @Override
+//                public void onError(int code, String message) {
+//                    // TODO Auto-generated method stub
+//
+//                }
+//            });
         }
     }
 }

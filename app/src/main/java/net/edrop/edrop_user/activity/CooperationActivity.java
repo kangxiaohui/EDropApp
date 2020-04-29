@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 
 import net.edrop.edrop_user.R;
@@ -14,7 +13,7 @@ import net.edrop.edrop_user.utils.ShareAppToOther;
 import net.edrop.edrop_user.utils.SystemTransUtil;
 
 import static com.mob.MobSDK.getContext;
-import static net.edrop.edrop_user.activity.ServicePageFragment.drawableToBitmap;
+import static net.edrop.edrop_user.fragment.ServicePageFragment.drawableToBitmap;
 
 /**
  * Created by 李诗凡.

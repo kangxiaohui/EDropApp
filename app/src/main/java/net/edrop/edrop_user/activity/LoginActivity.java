@@ -1,5 +1,6 @@
 package net.edrop.edrop_user.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,6 +38,7 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
+import net.edrop.edrop_user.model.Model;
 import net.edrop.edrop_user.utils.Constant;
 import net.edrop.edrop_user.utils.QQConfig;
 import net.edrop.edrop_user.R;
@@ -60,11 +62,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 import static net.edrop.edrop_user.utils.Constant.BASE_URL;
 import static net.edrop.edrop_user.utils.Constant.LOGIN_SUCCESS;
@@ -88,10 +85,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static BaseUiListener listener = null;
     private String QQ_uid;//qq_openid
     private SharedPreferencesUtils sharedPreferences;
-    private boolean lightStatusBar = false;
     private OkHttpClient okHttpClient;
     private String username;
     private String password;
+    private ProgressDialog dialog = null;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -129,16 +126,52 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     //判断是否是第一次登陆
     private void isAuto() {
-        try {
-            boolean isAuto = sharedPreferences.getBoolean("isAuto");
-            if (isAuto) {
-                Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        boolean isAuto = sharedPreferences.getBoolean("isAuto");
+        String loginName=sharedPreferences.getString("username","");
+        if (isAuto) {
+            //登陆环信
+            loginIMByDB(loginName);
         }
+    }
+
+    private void loginIMByDB(final String loginName) {
+        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                EMClient.getInstance().login(loginName, loginName, new EMCallBack() {
+                    @Override
+                    public void onSuccess() {
+                        runOnUiThread( new Runnable() {
+                            @Override
+                            public void run() {
+                                //提示登录成功
+                                Toast.makeText( LoginActivity.this, "登录成功", Toast.LENGTH_SHORT ).show();
+                                Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finish();
+                            }
+                        } );
+                    }
+
+                    @Override
+                    public void onError(int i, final String s) {
+                        //提示登录失败
+                        runOnUiThread( new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText( LoginActivity.this, "登录失败" + s, Toast.LENGTH_SHORT ).show();
+                            }
+                        } );
+                    }
+
+                    @Override
+                    public void onProgress(int i, String s) {
+                        dialog = ProgressDialog.show(LoginActivity.this, "登录提示", "正在登录，请稍等...", false);
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -217,8 +250,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (isSelected) {
                     username = edUserName.getText().toString();
                     password = edPwd.getText().toString();
-                    login(username, password);
                     OkHttpLogin(username, password);
+                    loginIMByUserNameAndPassword(username, password);
                 } else {
                     Toast.makeText(LoginActivity.this, "请检查用户名或密码", Toast.LENGTH_SHORT).show();
                 }
@@ -238,42 +271,46 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    /**
-     * 登录用户（异步）
-     */
-    private void login(final String username, final String password) {
-        Observable.create(new Observable.OnSubscribe<String>() {
+    private void loginIMByUserNameAndPassword(final String username, String password) {
+        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
             @Override
-            public void call(final Subscriber<? super String> subscriber) {
-                EMClient.getInstance().login(username, password, new EMCallBack() {//回调
+            public void run() {
+                EMClient.getInstance().login(username, username, new EMCallBack() {
                     @Override
                     public void onSuccess() {
-                        EMClient.getInstance().groupManager().loadAllGroups();
-                        EMClient.getInstance().chatManager().loadAllConversations();
-                        startActivity(new Intent(LoginActivity.this, Main2Activity.class));
-                        subscriber.onNext("登录聊天服务器成功");
+                        runOnUiThread( new Runnable() {
+                            @Override
+                            public void run() {
+                                //提示登录成功
+                                Toast.makeText( LoginActivity.this, "登录成功", Toast.LENGTH_SHORT ).show();
+
+                                Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                startActivity(intent);
+                                overridePendingTransition(0, 0);
+                                finish();
+                            }
+                        } );
                     }
 
                     @Override
-                    public void onProgress(int progress, String status) {
-
+                    public void onError(int i, final String s) {
+                        //提示登录失败
+                        runOnUiThread( new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText( LoginActivity.this, "登录失败" + s, Toast.LENGTH_SHORT ).show();
+                            }
+                        } );
                     }
 
                     @Override
-                    public void onError(int code, String message) {
-                        subscriber.onNext("登录聊天服务器失败：" + code);
+                    public void onProgress(int i, String s) {
+                        dialog = ProgressDialog.show(LoginActivity.this, "登录提示", "正在登录，请稍等...", false);
                     }
                 });
             }
-
-        }).subscribeOn(Schedulers.immediate())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String s) {
-                        Toast.makeText(LoginActivity.this, s, Toast.LENGTH_SHORT).show();
-                    }
-                });
+        });
     }
 
     /***
@@ -288,7 +325,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     /**
-     * 自动弹出软 键盘
+     * 自动弹出软键盘
      */
     public static void showSoftkeyboard(final EditText etID, final Context mContext) {
         etID.post(new Runnable() {
@@ -385,7 +422,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     editor.commit();
                                     Message msg = new Message();
                                     msg.obj = response;
-//                                    Log.e("qq", "................" + response.toString());
                                     msg.what = 9;
                                     mHandler.sendMessage(msg);
                                 }
@@ -451,9 +487,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //请求成功时回调
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-//                Log.e("异步get请求结果", response.body().string());
                 String responseJson = response.body().string();
-//                Log.e("response", responseJson);
                 try {
                     JSONObject jsonObject = new JSONObject(responseJson);
                     String state = jsonObject.getString("state");
@@ -473,11 +507,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         editor.putString("detailAddress", user.getDetailAddress());
                         editor.putBoolean("isAuto", true);
                         editor.commit();
-                        Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        overridePendingTransition(0, 0);
-
                     } else if (Integer.valueOf(state) == PASSWORD_WRONG) {
                         //密码错误
                         Message msg = new Message();
