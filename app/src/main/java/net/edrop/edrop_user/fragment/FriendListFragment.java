@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +35,7 @@ import java.util.Map;
 
 // 联系人列表页面
 public class FriendListFragment extends EaseContactListFragment {
+
     private ImageView iv_contact_red;
     private LocalBroadcastManager mLBM;
     private LinearLayout ll_contact_invite;
@@ -59,9 +61,10 @@ public class FriendListFragment extends EaseContactListFragment {
     @Override
     protected void initView() {
         super.initView();
-        titleBar.setBackgroundColor(getResources().getColor(R.color.color_green));
-        //布局显示加号
+        //布局显示
         titleBar.setLeftImageResource(R.drawable.left);
+        titleBar.setBackgroundColor(getResources().getColor(R.color.color_green));
+
         //添加头布局
         View headerView = View.inflate(getActivity(), R.layout.fragment_friend_list, null);
         listView.addHeaderView(headerView);
@@ -79,11 +82,8 @@ public class FriendListFragment extends EaseContactListFragment {
                 if (user == null) {
                     return;
                 }
-
                 Intent intent = new Intent(getActivity(), ChatViewActivity.class);
-                //传递参数
                 intent.putExtra(EaseConstant.EXTRA_USER_ID, user.getUsername());
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });
@@ -113,7 +113,6 @@ public class FriendListFragment extends EaseContactListFragment {
 
                 //跳转到邀请信息邀请页面
                 Intent intent = new Intent(getActivity(), InviteActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });
@@ -202,6 +201,7 @@ public class FriendListFragment extends EaseContactListFragment {
         getActivity().getMenuInflater().inflate(R.menu.delete, menu);
     }
 
+    //选中联系人操作
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 
@@ -257,4 +257,5 @@ public class FriendListFragment extends EaseContactListFragment {
         mLBM.unregisterReceiver(ContactInviteChangeReceiver);
         mLBM.unregisterReceiver(ContactChangeReceiver);
     }
+
 }

@@ -1,6 +1,5 @@
 package net.edrop.edrop_user.activity;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +7,6 @@ import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.widget.ListView;
@@ -28,7 +26,7 @@ import java.util.List;
 
 import xyz.bboylin.universialtoast.UniversalToast;
 
-public class InviteActivity extends Activity {
+public class InviteActivity extends AppCompatActivity {
 
     private ListView lv_invite;
     private InviteAdapter inviteAdapter;

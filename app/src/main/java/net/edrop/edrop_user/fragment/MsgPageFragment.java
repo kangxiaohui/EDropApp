@@ -63,8 +63,7 @@ public class MsgPageFragment extends EaseConversationListFragment {
         ll[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getView().getContext(), FriendListActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                Intent intent = new Intent(getActivity(), FriendListActivity.class);
                 startActivity(intent);
                 rlFriend.setVisibility(View.GONE);
                 fab01Add.setImageResource(R.mipmap.ic_add_white_24dp);
@@ -75,8 +74,7 @@ public class MsgPageFragment extends EaseConversationListFragment {
         ll[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getView().getContext(), FriendAddActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                Intent intent = new Intent(getActivity(), FriendAddActivity.class);
                 startActivity(intent);
                 rlFriend.setVisibility(View.GONE);
                 fab01Add.setImageResource(R.mipmap.ic_add_white_24dp);
@@ -85,11 +83,12 @@ public class MsgPageFragment extends EaseConversationListFragment {
             }
         });
     }
-//
+
+
     @SuppressLint("ResourceType")
     private void initData() {
-        addFriendTranslate1 = (AnimatorSet) AnimatorInflater.loadAnimator(getView().getContext(), R.anim.add_friend_anim);
-        addFriendTranslate2 = (AnimatorSet) AnimatorInflater.loadAnimator(getView().getContext(), R.anim.add_friend_anim);
+        addFriendTranslate1 = (AnimatorSet) AnimatorInflater.loadAnimator(getActivity(), R.anim.add_friend_anim);
+        addFriendTranslate2 = (AnimatorSet) AnimatorInflater.loadAnimator(getActivity(), R.anim.add_friend_anim);
     }
 
     public void initview2() {

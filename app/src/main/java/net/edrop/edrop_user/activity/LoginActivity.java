@@ -120,6 +120,56 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         okHttpClient = new OkHttpClient();
     }
 
+    private void login(final String loginName) {
+        Model.getInstance().getGlobalThreadPool().execute( new Runnable() {
+            @Override
+            public void run() {
+                //去环信服务器登录
+                EMClient.getInstance().login( loginName, loginName, new EMCallBack() {
+                    //登录成功后的处理
+                    @Override
+                    public void onSuccess() {
+                        //对模型层数据处理
+                        Model.getInstance().loginSuccess( new IMUserInfo( loginName ) );
+                        //保存用户账号信息到本地数据库
+                        Model.getInstance().getUSerAccountDao().addAccount( new IMUserInfo( loginName ) );
+
+//                        runOnUiThread( new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                //提示登录成功
+//                                Toast.makeText( LoginActivity.this, "登录成功", Toast.LENGTH_SHORT ).show();
+//
+//                                //跳转到主页面
+//                                Intent intent = new Intent( LoginActivity.this, Main2Activity.class );
+//                                startActivity( intent );
+//                                finish();
+//                            }
+//                        } );
+
+                    }
+
+                    @Override
+                    public void onError(int i, final String s) {
+                        //提示登录失败
+                        runOnUiThread( new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText( LoginActivity.this, "登录失败" + s, Toast.LENGTH_SHORT ).show();
+                            }
+                        } );
+                    }
+
+                    //登录过程中的处理
+                    @Override
+                    public void onProgress(int i, String s) {
+
+                    }
+                } );
+            }
+        } );
+    }
+
     //判断是否是第一次登陆
     private void isAuto() {
         boolean isAuto = sharedPreferences.getBoolean("isAuto");
@@ -134,6 +184,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     //登录成功后的方法
                     Model.getInstance().loginSuccess(account);
                     //提示登录成功
+                    login(loginName);
                     UniversalToast.makeText(LoginActivity.this, "登录成功", UniversalToast.LENGTH_SHORT,
                             UniversalToast.EMPHASIZE)
                             .setLeftIconRes(R.drawable.ic_check_circle_white_24dp)

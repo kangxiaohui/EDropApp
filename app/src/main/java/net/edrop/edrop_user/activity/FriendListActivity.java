@@ -24,16 +24,4 @@ public class FriendListActivity extends AppCompatActivity{
                 .show(friendListFragment)
                 .commit();
     }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_BACK:
-                return true;
-            case KeyEvent.KEYCODE_HOME:
-                return true;
-
-        }
-
-        return super.onKeyDown(keyCode, event);
-    }
 }
