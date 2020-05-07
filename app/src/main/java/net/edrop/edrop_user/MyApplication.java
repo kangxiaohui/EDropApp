@@ -1,25 +1,14 @@
 package net.edrop.edrop_user;
 
-import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Process;
-import android.support.annotation.NonNull;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.stetho.Stetho;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
 import net.edrop.edrop_user.model.Model;
-
-import java.util.Iterator;
-import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -31,6 +20,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Stetho.initializeWithDefaults(this);
         //极光推送
         JPushInterface.setDebugMode(true);//打开调试模式
         JPushInterface.init(this);
@@ -41,10 +31,11 @@ public class MyApplication extends Application {
         //初始化环信easeui
         EMOptions options = new EMOptions();
         options.setAcceptInvitationAlways(false);//设置需要同意后才能接受邀请
-        options.setAutoAcceptGroupInvitation(false); //设置需要同意后才能接受群邀请
+        EMClient.getInstance().init(this, options);
         //初始化数据模型层类
         Model.getInstance().init(this);
-        EMClient.getInstance().init(this, options);
+        //初始化全局上下文
+        mContext = this;
     }
 
     public static Application getInstance2(){
@@ -61,5 +52,10 @@ public class MyApplication extends Application {
             mInstance = new MyApplication();
         }
         return mInstance;
+    }
+
+    //获取全局上下文对象
+    public static Context getGlobalApplication(){
+        return mContext;
     }
 }

@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
 android {
     compileSdkVersion 28
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
     defaultConfig {
         applicationId "net.edrop.edrop_user"
         minSdkVersion 16
@@ -54,16 +56,22 @@ MobSDK {
     SMSSDK {}
 }
 dependencies {
-    /*添加emoji表情包的依赖*/
+    implementation 'com.facebook.stetho:stetho:1.3.1'
+    //Toast依赖
+    implementation 'com.github.bboylin:UniversalToast:v1.0.9'
+    implementation 'com.facebook.fresco:animated-gif:1.10.0'
+    //轮播图
+    implementation 'com.facebook.fresco:fresco:1.10.0'
+    //加载动画依赖
+    implementation 'com.github.gittjy:LoadingDialog:1.0.2'
+    //添加emoji表情包的依赖
     implementation 'io.github.rockerhieu:emojicon:1.4.1'
-    /*反馈picture的依赖*/
+    //反馈picture的依赖
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     //TextInputLayout的依赖
     implementation 'com.android.support:design:28.0.0'
     //DrawerLayout侧边栏中动画效果用到的
     implementation 'com.nineoldandroids:library:2.4.0'
-    //轮播图
-    implementation 'com.facebook.fresco:fresco:1.10.0'
     //添加qq快速登陆的依赖
     implementation 'com.zhy:okhttputils:2.6.2'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'

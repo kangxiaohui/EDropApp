@@ -5,14 +5,15 @@
     android:versionCode="100"
     android:versionName="1.0.0">
 
-    <!--极光推送-->
+    <!-- 极光推送 -->
     <permission
         android:name="${applicationId}.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
     <!-- Required  一些系统要求的权限，如访问网络等 -->
     <uses-permission android:name="${applicationId}.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-
+    <!-- 悬浮窗权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 网络权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -85,7 +86,7 @@
         <activity
             android:name=".activity.RecognitionResultActivity"
             android:label="@string/title_activity_recognition_result" />
-        <activity android:name=".activity.ChatViewActivity"/>
+        <activity android:name=".activity.ChatViewActivity" />
         <activity android:name=".activity.LoadingActivity" />
         <activity android:name=".activity.TestPhoneNumActivity" />
         <activity android:name=".activity.FeedBackActivity" />
@@ -117,7 +118,8 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- QQ登录配置 end -->
 
-        <!--环信集成开始-->
+
+        <!-- 环信集成开始 -->
         <!-- 设置环信应用的AppKey -->
         <meta-data
             android:name="EASEMOB_APPKEY"
@@ -143,8 +145,8 @@
             </intent-filter>
         </receiver>
 
-        <!--环信集成结束-->
-        <!--极光推送-->
+        <!-- 环信集成结束 -->
+        <!-- 极光推送 -->
         <!-- Required SDK核心功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
@@ -249,6 +251,9 @@
             android:name="JPUSH_APPKEY"
             android:value="92d2ae475663c07cfca31b8a" />
         <!-- </>值来自开发者平台取得的AppKey -->
+        <activity android:name=".activity.FriendAddActivity" />
+        <activity android:name=".activity.FriendListActivity" />
+        <activity android:name=".activity.InviteActivity"></activity>
     </application>
 
 </manifest>

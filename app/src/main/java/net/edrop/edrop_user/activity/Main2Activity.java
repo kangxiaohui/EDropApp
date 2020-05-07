@@ -167,7 +167,8 @@ public class Main2Activity extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_MAIN);// 设置Intent动作
                 intent.addCategory(Intent.CATEGORY_HOME);// 设置Intent种类
                 startActivity(intent);
-//                System.exit(0);
+                this.finish();
+                System.exit(0);
             }
             return true;
         }

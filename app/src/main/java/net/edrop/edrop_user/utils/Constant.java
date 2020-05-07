@@ -41,6 +41,9 @@ public class Constant {
     public static final int ORDER_STATE_EMPLOYEE_DELETED = 1;    //删除
     public static final int ORDER_STATE_EMPLOYEE_NO_DELETE = 0;    //未删除
 
+    public static final String CONTACT_CHANGED = "contact_changed";//发送联系人变化的广播
+    public static final String CONTACT_INVITE_CHANGED = "contact_invite_changed";//联系人邀请信息变化的广播
+
     //图片路径
     public static final String path = "http://122.51.69.212:8080/img/";
 }

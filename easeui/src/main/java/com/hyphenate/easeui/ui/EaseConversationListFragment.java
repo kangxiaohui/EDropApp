@@ -1,8 +1,10 @@
 package com.hyphenate.easeui.ui;
 
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Pair;
@@ -19,6 +21,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMConversationListener;
@@ -39,6 +43,21 @@ import java.util.Map;
  *
  */
 public class EaseConversationListFragment extends EaseBaseFragment{
+    //添加按钮
+    protected FloatingActionButton fab01Add;
+    //添加按钮状态
+    protected boolean isAdd = false;
+    //整个子菜单主id
+    protected RelativeLayout rlFriend;
+    //布局数组
+    protected int[] llId = new int[]{R.id.ll01, R.id.ll02};
+    protected LinearLayout[] ll = new LinearLayout[llId.length];
+    //子菜单数组
+    protected int[] fabId = new int[]{R.id.miniFab01, R.id.miniFab02};
+    protected FloatingActionButton[] fab = new FloatingActionButton[fabId.length];
+    protected AnimatorSet addFriendTranslate1;
+    protected AnimatorSet addFriendTranslate2;
+
 	private final static int MSG_REFRESH = 2;
     protected EditText query;
     protected ImageButton clearSearch;
@@ -57,7 +76,7 @@ public class EaseConversationListFragment extends EaseBaseFragment{
 		}
     	
     };
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.ease_fragment_conversation_list, container, false);
