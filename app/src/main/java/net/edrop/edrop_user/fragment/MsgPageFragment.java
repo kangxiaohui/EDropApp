@@ -66,6 +66,9 @@ public class MsgPageFragment extends EaseConversationListFragment {
                 Intent intent = new Intent(getView().getContext(), FriendListActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
+                rlFriend.setVisibility(View.GONE);
+                fab01Add.setImageResource(R.mipmap.ic_add_white_24dp);
+                isAdd = false;
             }
         });
         //添加联系人监听事件
@@ -75,6 +78,10 @@ public class MsgPageFragment extends EaseConversationListFragment {
                 Intent intent = new Intent(getView().getContext(), FriendAddActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
+                rlFriend.setVisibility(View.GONE);
+                fab01Add.setImageResource(R.mipmap.ic_add_white_24dp);
+                isAdd = false;
+
             }
         });
     }
