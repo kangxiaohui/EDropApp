@@ -43,6 +43,8 @@ public class Constant {
 
     public static final String CONTACT_CHANGED = "contact_changed";//发送联系人变化的广播
     public static final String CONTACT_INVITE_CHANGED = "contact_invite_changed";//联系人邀请信息变化的广播
+    public static final String GROUP_ID = "group_id";  //群id
+    public static final String EXIT_GROUP = "exit_group"; //退群广播
 
     //图片路径
     public static final String path = "http://122.51.69.212:8080/img/";
