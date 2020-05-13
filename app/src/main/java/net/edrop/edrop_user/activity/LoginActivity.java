@@ -3,11 +3,12 @@ package net.edrop.edrop_user.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -17,8 +18,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.bumptech.glide.Glide;
+import com.android.tu.loadingdialog.LoadingDailog;
 import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
@@ -37,6 +36,8 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
+import net.edrop.edrop_user.model.Model;
+import net.edrop.edrop_user.model.bean.IMUserInfo;
 import net.edrop.edrop_user.utils.Constant;
 import net.edrop.edrop_user.utils.QQConfig;
 import net.edrop.edrop_user.R;
@@ -48,23 +49,15 @@ import net.edrop.edrop_user.utils.SystemTransUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import xyz.bboylin.universialtoast.UniversalToast;
 
 import static net.edrop.edrop_user.utils.Constant.BASE_URL;
 import static net.edrop.edrop_user.utils.Constant.LOGIN_SUCCESS;
@@ -88,10 +81,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static BaseUiListener listener = null;
     private String QQ_uid;//qq_openid
     private SharedPreferencesUtils sharedPreferences;
-    private boolean lightStatusBar = false;
     private OkHttpClient okHttpClient;
     private String username;
     private String password;
+    private static final int REQUEST_PERMISSION_CODE = 123;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -127,23 +120,145 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         okHttpClient = new OkHttpClient();
     }
 
+    private void login(final String loginName) {
+        Model.getInstance().getGlobalThreadPool().execute( new Runnable() {
+            @Override
+            public void run() {
+                //去环信服务器登录
+                EMClient.getInstance().login( loginName, loginName, new EMCallBack() {
+                    //登录成功后的处理
+                    @Override
+                    public void onSuccess() {
+                        //对模型层数据处理
+                        Model.getInstance().loginSuccess( new IMUserInfo( loginName ) );
+                        //保存用户账号信息到本地数据库
+                        Model.getInstance().getUSerAccountDao().addAccount( new IMUserInfo( loginName ) );
+
+//                        runOnUiThread( new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                //提示登录成功
+//                                Toast.makeText( LoginActivity.this, "登录成功", Toast.LENGTH_SHORT ).show();
+//
+//                                //跳转到主页面
+//                                Intent intent = new Intent( LoginActivity.this, Main2Activity.class );
+//                                startActivity( intent );
+//                                finish();
+//                            }
+//                        } );
+
+                    }
+
+                    @Override
+                    public void onError(int i, final String s) {
+                        //提示登录失败
+                        runOnUiThread( new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText( LoginActivity.this, "登录失败" + s, Toast.LENGTH_SHORT ).show();
+                            }
+                        } );
+                    }
+
+                    //登录过程中的处理
+                    @Override
+                    public void onProgress(int i, String s) {
+
+                    }
+                } );
+            }
+        } );
+    }
+
     //判断是否是第一次登陆
     private void isAuto() {
-        try {
-            boolean isAuto = sharedPreferences.getBoolean("isAuto");
-            if (isAuto) {
-                Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+        boolean isAuto = sharedPreferences.getBoolean("isAuto");
+        String loginName=sharedPreferences.getString("username","");
+        if (isAuto) {
+            //登陆环信
+            //判断当前账号是否已经登陆过环信
+            if(EMClient.getInstance().isLoggedInBefore()){//登陆过
+                //获取当前登陆用户的信息
+                IMUserInfo account = Model.getInstance().getUSerAccountDao().getAccountByHxId(EMClient.getInstance().getCurrentUser());
+                if (account!=null){
+                    //登录成功后的方法
+                    Model.getInstance().loginSuccess(account);
+                    //提示登录成功
+                    login(loginName);
+                    UniversalToast.makeText(LoginActivity.this, "登录成功", UniversalToast.LENGTH_SHORT,
+                            UniversalToast.EMPHASIZE)
+                            .setLeftIconRes(R.drawable.ic_check_circle_white_24dp)
+                            .show();
+                    //跳转到主页面
+                    Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(LoginActivity.this,"请登录",Toast.LENGTH_SHORT).show();
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+                finish();
+//            loginIMByDB(loginName);
         }
+    }
+
+    private void loginIMByDB(final String loginName) {
+        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                EMClient.getInstance().login(loginName, loginName, new EMCallBack() {
+                    @Override
+                    public void onSuccess() {
+                        runOnUiThread( new Runnable() {
+                            @Override
+                            public void run() {
+                                //对模型层数据处理
+                                Model.getInstance().loginSuccess( new IMUserInfo( loginName ) );
+                                //提示登录成功
+                                UniversalToast.makeText(LoginActivity.this, "登录成功", UniversalToast.LENGTH_SHORT,
+                                        UniversalToast.EMPHASIZE)
+                                        .setLeftIconRes(R.drawable.ic_check_circle_white_24dp)
+                                        .show();
+                                Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finish();
+                            }
+                        } );
+                    }
+
+                    @Override
+                    public void onError(int i, final String s) {
+                        //提示登录失败
+                        runOnUiThread( new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText( LoginActivity.this, "登录失败" + s, Toast.LENGTH_SHORT ).show();
+                            }
+                        } );
+                    }
+
+                    @Override
+                    public void onProgress(int i, String s) {
+                        LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(LoginActivity.this)
+                                .setMessage("登陆中，请稍后...")
+                                .setCancelable(true)
+                                .setCancelOutside(true);
+                        LoadingDailog dialog=loadBuilder.create();
+                        dialog.show();
+                    }
+                });
+            }
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         Tencent.onActivityResultData(requestCode, resultCode, data, new BaseUiListener());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && requestCode == REQUEST_PERMISSION_CODE) {
+            String text = Settings.canDrawOverlays(this) ? "已获取悬浮窗权限" : "请打开悬浮窗权限";
+            UniversalToast.makeText(this, text, UniversalToast.LENGTH_SHORT).show();
+        }
     }
 
     private void initView() {
@@ -212,13 +327,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
+                if (!requestPermission()) {
+                    return;
+                }
                 username = edUserName.getText().toString().trim();
                 password = edPwd.getText().toString().trim();
                 if (isSelected) {
                     username = edUserName.getText().toString();
                     password = edPwd.getText().toString();
-                    login(username, password);
                     OkHttpLogin(username, password);
+                    loginIMByUserNameAndPassword(username, password);
                 } else {
                     Toast.makeText(LoginActivity.this, "请检查用户名或密码", Toast.LENGTH_SHORT).show();
                 }
@@ -238,42 +356,57 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    /**
-     * 登录用户（异步）
-     */
-    private void login(final String username, final String password) {
-        Observable.create(new Observable.OnSubscribe<String>() {
+    private void loginIMByUserNameAndPassword(final String username, String password) {
+        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
             @Override
-            public void call(final Subscriber<? super String> subscriber) {
-                EMClient.getInstance().login(username, password, new EMCallBack() {//回调
+            public void run() {
+                EMClient.getInstance().login(username, username, new EMCallBack() {
                     @Override
                     public void onSuccess() {
-                        EMClient.getInstance().groupManager().loadAllGroups();
-                        EMClient.getInstance().chatManager().loadAllConversations();
-                        startActivity(new Intent(LoginActivity.this, Main2Activity.class));
-                        subscriber.onNext("登录聊天服务器成功");
+                        runOnUiThread( new Runnable() {
+                            @Override
+                            public void run() {
+                                //对模型层数据处理
+                                Model.getInstance().loginSuccess( new IMUserInfo( username ) );
+                                //提示登录成功
+                                UniversalToast.makeText(LoginActivity.this, "登录成功", UniversalToast.LENGTH_SHORT,
+                                        UniversalToast.EMPHASIZE)
+                                        .setLeftIconRes(R.drawable.ic_check_circle_white_24dp)
+                                        .show();
+                                //保存用户账号信息到本地数据库
+                                Model.getInstance().getUSerAccountDao().addAccount( new IMUserInfo( username ) );
+                                Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                startActivity(intent);
+                                overridePendingTransition(0, 0);
+                                finish();
+                            }
+                        } );
                     }
 
                     @Override
-                    public void onProgress(int progress, String status) {
-
+                    public void onError(int i, final String s) {
+                        //提示登录失败
+                        runOnUiThread( new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText( LoginActivity.this, "登录失败" + s, Toast.LENGTH_SHORT ).show();
+                            }
+                        } );
                     }
 
                     @Override
-                    public void onError(int code, String message) {
-                        subscriber.onNext("登录聊天服务器失败：" + code);
+                    public void onProgress(int i, String s) {
+                        LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(LoginActivity.this)
+                                .setMessage("登陆中，请稍后...")
+                                .setCancelable(true)
+                                .setCancelOutside(true);
+                        LoadingDailog dialog=loadBuilder.create();
+                        dialog.show();
                     }
                 });
             }
-
-        }).subscribeOn(Schedulers.immediate())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String s) {
-                        Toast.makeText(LoginActivity.this, s, Toast.LENGTH_SHORT).show();
-                    }
-                });
+        });
     }
 
     /***
@@ -288,7 +421,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     /**
-     * 自动弹出软 键盘
+     * 自动弹出软键盘
      */
     public static void showSoftkeyboard(final EditText etID, final Context mContext) {
         etID.post(new Runnable() {
@@ -331,6 +464,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 IUiListener listener = new IUiListener() {
                     @Override
                     public void onError(UiError e) {
+                        String errorMessage = e.errorMessage;
+                        Log.e("更新用户失败信息：",errorMessage);
                     }
 
                     @Override
@@ -385,7 +520,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     editor.commit();
                                     Message msg = new Message();
                                     msg.obj = response;
-//                                    Log.e("qq", "................" + response.toString());
                                     msg.what = 9;
                                     mHandler.sendMessage(msg);
                                 }
@@ -394,7 +528,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                     @Override
                     public void onCancel() {
-//                        Log.e("qq", "登录取消..");
+                        Log.e("qq", "登录取消..");
                     }
                 };
                 userInfo = new UserInfo(LoginActivity.this, mTencent.getQQToken());
@@ -451,9 +585,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //请求成功时回调
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-//                Log.e("异步get请求结果", response.body().string());
                 String responseJson = response.body().string();
-//                Log.e("response", responseJson);
                 try {
                     JSONObject jsonObject = new JSONObject(responseJson);
                     String state = jsonObject.getString("state");
@@ -473,11 +605,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         editor.putString("detailAddress", user.getDetailAddress());
                         editor.putBoolean("isAuto", true);
                         editor.commit();
-                        Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        overridePendingTransition(0, 0);
-
                     } else if (Integer.valueOf(state) == PASSWORD_WRONG) {
                         //密码错误
                         Message msg = new Message();
@@ -517,4 +644,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    private boolean requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (!Settings.canDrawOverlays(this)) {
+                UniversalToast.makeText(this, "请允许悬浮窗权限", UniversalToast.LENGTH_SHORT).showWarning();
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" +
+                        getPackageName()));
+                startActivityForResult(intent, REQUEST_PERMISSION_CODE);
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

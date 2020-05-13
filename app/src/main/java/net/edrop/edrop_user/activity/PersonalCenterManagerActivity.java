@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.tu.loadingdialog.LoadingDailog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -26,6 +27,7 @@ import com.hyphenate.chat.EMClient;
 
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.entity.User;
+import net.edrop.edrop_user.model.Model;
 import net.edrop.edrop_user.utils.SharedPreferencesUtils;
 import net.edrop.edrop_user.utils.SystemTransUtil;
 
@@ -39,6 +41,7 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import xyz.bboylin.universialtoast.UniversalToast;
 
 import static net.edrop.edrop_user.utils.Constant.BASE_URL;
 
@@ -160,10 +163,11 @@ public class PersonalCenterManagerActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor2 = sharedPreferences.getEditor();
                     editor2.putBoolean("isAuto", false);
                     editor2.commit();
-                    getLoginExit();
+                    toLoginOutIM();
                     Intent intent2 = new Intent(PersonalCenterManagerActivity.this, LoginActivity.class);
                     intent2.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent2);
+                    finish();
                     break;
                 case R.id.personal_back:
                     finish();
@@ -179,25 +183,43 @@ public class PersonalCenterManagerActivity extends AppCompatActivity {
         /**
          * 退出环信登录
          */
-        private void getLoginExit() {
-            EMClient.getInstance().logout(true, new EMCallBack() {
-
+        private void toLoginOutIM() {
+            Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
                 @Override
-                public void onSuccess() {
-                    // TODO Auto-generated method stub
+                public void run() {
+                    EMClient.getInstance().logout(true, new EMCallBack() {
 
-                }
+                        @Override
+                        public void onSuccess() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    UniversalToast.makeText(PersonalCenterManagerActivity.this, "注销成功", UniversalToast.LENGTH_SHORT,
+                                            UniversalToast.EMPHASIZE).showSuccess();
+                                }
+                            });
+                        }
 
-                @Override
-                public void onProgress(int progress, String status) {
-                    // TODO Auto-generated method stub
+                        @Override
+                        public void onProgress(int progress, String status) {
+                            LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(PersonalCenterManagerActivity.this)
+                                    .setMessage("注销中，请稍后...")
+                                    .setCancelable(true)
+                                    .setCancelOutside(true);
+                            LoadingDailog dialog=loadBuilder.create();
+                            dialog.show();
+                        }
 
-                }
-
-                @Override
-                public void onError(int code, String message) {
-                    // TODO Auto-generated method stub
-
+                        @Override
+                        public void onError(int code, String message) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(PersonalCenterManagerActivity.this,"注销失败",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
                 }
             });
         }

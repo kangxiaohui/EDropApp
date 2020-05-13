@@ -692,6 +692,7 @@ public class FillPersonalInforActivity extends AppCompatActivity implements Easy
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String string = response.body().string();
+                Log.e("个人信息",string);
                 int state = 0;
                 try {
                     JSONObject jsonObject = new JSONObject(string);

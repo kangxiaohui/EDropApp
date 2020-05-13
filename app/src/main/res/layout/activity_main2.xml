@@ -200,7 +200,7 @@
         <!-- android:tag="LEFT"用于java代码中通过drawerView.getTag()判断左侧还是右侧 -->
         <fragment
             android:id="@+id/fragment_leftmenu"
-            android:name="net.edrop.edrop_user.activity.MainMenuLeftFragment"
+            android:name="net.edrop.edrop_user.fragment.MainMenuLeftFragment"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="left"

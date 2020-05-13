@@ -2,7 +2,6 @@ package net.edrop.edrop_user.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -24,6 +23,11 @@ import com.nineoldandroids.view.ViewHelper;
 
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.adapter.FragmentIndexAdapter;
+import net.edrop.edrop_user.fragment.CommunityPageFragment;
+import net.edrop.edrop_user.fragment.HomePageFragment;
+import net.edrop.edrop_user.fragment.MainMenuLeftFragment;
+import net.edrop.edrop_user.fragment.MsgPageFragment;
+import net.edrop.edrop_user.fragment.ServicePageFragment;
 import net.edrop.edrop_user.utils.MyViewPager;
 import net.edrop.edrop_user.utils.SharedPreferencesUtils;
 import net.edrop.edrop_user.utils.SystemTransUtil;
@@ -163,7 +167,8 @@ public class Main2Activity extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_MAIN);// 设置Intent动作
                 intent.addCategory(Intent.CATEGORY_HOME);// 设置Intent种类
                 startActivity(intent);
-//                System.exit(0);
+                this.finish();
+                System.exit(0);
             }
             return true;
         }

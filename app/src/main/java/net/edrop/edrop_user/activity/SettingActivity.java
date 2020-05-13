@@ -10,20 +10,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.android.tu.loadingdialog.LoadingDailog;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 
 import net.edrop.edrop_user.R;
+import net.edrop.edrop_user.model.Model;
 import net.edrop.edrop_user.utils.SharedPreferencesUtils;
 import net.edrop.edrop_user.utils.SystemTransUtil;
 
-/**
- * Created by 李诗凡.
- * User: sifannnn
- * Date: 2019/12/10
- * Time: 20:29
- * TODO：设置的主页面
- */
+import xyz.bboylin.universialtoast.UniversalToast;
+
 public class SettingActivity extends AppCompatActivity {
     private ImageView imageView;
     private RelativeLayout aboutlayout;
@@ -45,8 +42,7 @@ public class SettingActivity extends AppCompatActivity {
 
 
     /**
-     * Created: sifannnn
-     * TODO：获取控件对象
+     * 获取控件对象
      */
     private void findViews() {
         imageView = findViewById(R.id.iv_setting_back);
@@ -58,8 +54,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     /**
-     * Created: sifannnn
-     * TODO：绑定监听器
+     * 绑定监听器
      */
     private void initEvent() {
         imageView.setOnClickListener(new MyListener());
@@ -71,8 +66,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     /**
-     * Created: sifannnn
-     * TODO：设置监听处理方法
+     * 设置监听处理方法
      */
     private class MyListener implements View.OnClickListener {
 
@@ -111,10 +105,11 @@ public class SettingActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor2 = sharedPreferences.getEditor();
                     editor2.putBoolean("isAuto", false);
                     editor2.commit();
-                    getLoginExit();
+                    toLoginOutIM();
                     Intent intent2 = new Intent(SettingActivity.this, LoginActivity.class);
                     intent2.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent2);
+                    finish();
                     break;
             }
         }
@@ -123,25 +118,45 @@ public class SettingActivity extends AppCompatActivity {
     /**
      * 退出环信登录
      */
-    private void getLoginExit() {
-        EMClient.getInstance().logout(true, new EMCallBack() {
-
+    private void toLoginOutIM() {
+        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
             @Override
-            public void onSuccess() {
-                // TODO Auto-generated method stub
+            public void run() {
+                EMClient.getInstance().logout(true, new EMCallBack() {
 
-            }
+                    @Override
+                    public void onSuccess() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //关闭DBHelper
+                                Model.getInstance().getDBManager().close();
+                                UniversalToast.makeText(SettingActivity.this, "注销成功", UniversalToast.LENGTH_SHORT,
+                                        UniversalToast.EMPHASIZE).showSuccess();
+                            }
+                        });
+                    }
 
-            @Override
-            public void onProgress(int progress, String status) {
-                // TODO Auto-generated method stub
+                    @Override
+                    public void onProgress(int progress, String status) {
+                        LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(SettingActivity.this)
+                                .setMessage("注销中，请稍后...")
+                                .setCancelable(true)
+                                .setCancelOutside(true);
+                        LoadingDailog dialog=loadBuilder.create();
+                        dialog.show();
+                    }
 
-            }
-
-            @Override
-            public void onError(int code, String message) {
-                // TODO Auto-generated method stub
-
+                    @Override
+                    public void onError(int code, String message) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(SettingActivity.this,"注销失败",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
             }
         });
     }
