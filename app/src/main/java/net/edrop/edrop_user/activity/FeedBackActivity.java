@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -179,10 +178,6 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
             phone = etPhone.getText().toString();
             flag = textView.getText().toString();
             text = emojiconEditText.getText().toString();
-            Log.e("qq", etQQ.getText().toString());
-            Log.e("phone", etPhone.getText().toString());
-            Log.e("flag", textView.getText().toString());
-            Log.e("text", emojiconEditText.getText().toString());
         }
 
         @Override
