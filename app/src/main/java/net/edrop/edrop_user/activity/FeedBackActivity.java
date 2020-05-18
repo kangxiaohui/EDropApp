@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -69,8 +70,10 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
     private Button button;
     private boolean hasClick;
     private String string;
+    private String text;
     private String qq;
     private String phone;
+    private String flag;
     private Intent intent;
     private LinearLayout linearLayout;
     private int maxSelectNum = 3;
@@ -95,6 +98,7 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
             textView.setText(string);
         }
         initWidget();
+
     }
 
     //设置监听器
@@ -105,6 +109,7 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
         imageViewback.setOnClickListener(this);
     }
 
+    //获取控件
     private void findViews() {
         mEditEmojicon = findViewById(R.id.et_feedback);
         etPhone = findViewById(R.id.et_feedback_phone);
@@ -115,7 +120,7 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
         linearLayout = findViewById(R.id.ll_feedback);
         imageViewback = findViewById(R.id.iv_feedback_back);
         mRecyclerView = findViewById(R.id.rl_feedback_recycler);
-        emojiconEditText=findViewById(R.id.et_feedback);
+        emojiconEditText = findViewById(R.id.et_feedback);
     }
 
 
@@ -123,12 +128,13 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            //选项选择
+            //问题场景的类别选择
             case R.id.ll_feedback:
                 intent = new Intent(FeedBackActivity.this, FeedBackOptionActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.im_feedback_smile: // 表情按钮
+            // 表情按钮
+            case R.id.im_feedback_smile:
                 if (hasClick) {
                     findViewById(R.id.emojicons).setVisibility(View.GONE);
                 } else {
@@ -138,22 +144,32 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
                 }
                 hasClick = !hasClick;
                 break;
-            case R.id.et_feedback: // 输入框
+            // 输入框
+            case R.id.et_feedback:
                 findViewById(R.id.emojicons).setVisibility(View.GONE);
                 hasClick = !hasClick;
                 break;
+            // 提交按钮
             case R.id.btn_feedback:
                 emojiconEditText.setText("");
                 textView.setText("");
+                etPhone.setText("");
+                etQQ.setText("");
+                //清空选中的所有图片，刷新布局
+                if (selectList.size() > 0) {
+                    selectList.clear();
+                    adapter.notifyDataSetChanged();
+                }
                 Toast.makeText(this, "反馈已提交，请耐心等待结果！！", Toast.LENGTH_SHORT).show();
                 break;
+            // 返回上一级
             case R.id.iv_feedback_back:
                 finish();
                 break;
         }
     }
 
-    //发送消息的异步类
+    //发送反馈消息的异步处理类
     private class sendMessage extends AsyncTask {
         @Override
         protected void onPreExecute() {
@@ -161,6 +177,12 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
             //获取控件值
             qq = etQQ.getText().toString();
             phone = etPhone.getText().toString();
+            flag = textView.getText().toString();
+            text = emojiconEditText.getText().toString();
+            Log.e("qq", etQQ.getText().toString());
+            Log.e("phone", etPhone.getText().toString());
+            Log.e("flag", textView.getText().toString());
+            Log.e("text", emojiconEditText.getText().toString());
         }
 
         @Override
@@ -179,7 +201,6 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             return null;
         }
     }
@@ -211,6 +232,8 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+
+    //反馈图片的获取
     private void initWidget() {
         FullyGridLayoutManager manager = new FullyGridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
@@ -306,7 +329,7 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
                         break;
                     case R.id.tv_cancel:
                         //取消
-                        //closePopupWindow();
+                        closePopupWindow();
                         break;
                 }
                 closePopupWindow();

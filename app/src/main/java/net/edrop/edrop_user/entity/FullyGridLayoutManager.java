@@ -42,7 +42,6 @@ public class FullyGridLayoutManager extends GridLayoutManager {
                     View.MeasureSpec.makeMeasureSpec(i, View.MeasureSpec.UNSPECIFIED),
                     View.MeasureSpec.makeMeasureSpec(i, View.MeasureSpec.UNSPECIFIED),
                     mMeasuredDimension);
-
             if (getOrientation() == HORIZONTAL) {
                 if (i % span == 0) {
                     width = width + mMeasuredDimension[0];

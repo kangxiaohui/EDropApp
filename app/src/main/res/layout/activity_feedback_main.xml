@@ -125,7 +125,7 @@
             android:id="@+id/im_feedback_smile"
             android:layout_width="130px"
             android:layout_height="130px"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="25dp"
             android:onClick="onClick"
             android:src="@drawable/smile" />
 
