@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ public class FriendAddActivity extends AppCompatActivity {
     private TextView tv_add_name;
     private Button bt_add_add;
     private IMUserInfo userInfo;
-    private TextView tvFinish;
+    private ImageView tvFinish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -12,15 +12,14 @@
         android:layout_height="50dp"
         android:background="@color/color_green">
 
-        <TextView
+        <ImageView
             android:id="@+id/add_friend_finish"
-            android:text="@string/left_finish"
             android:layout_marginLeft="@dimen/size_10"
-            android:textSize="@dimen/size_30"
-            android:textColor="@android:color/white"
+            android:layout_centerVertical="true"
+            android:src="@drawable/left"
             android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="@dimen/size_30" />
 
         <TextView
             android:layout_width="wrap_content"
