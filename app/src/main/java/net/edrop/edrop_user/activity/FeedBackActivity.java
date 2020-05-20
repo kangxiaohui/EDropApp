@@ -6,12 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -34,13 +34,13 @@ import com.luck.picture.lib.permissions.RxPermissions;
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.adapter.GridImageAdapter;
 import net.edrop.edrop_user.entity.FullyGridLayoutManager;
+import net.edrop.edrop_user.utils.Constant;
 import net.edrop.edrop_user.utils.SystemTransUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +49,12 @@ import io.github.rockerhieu.emojicon.EmojiconGridFragment;
 import io.github.rockerhieu.emojicon.EmojiconsFragment;
 import io.github.rockerhieu.emojicon.emoji.Emojicon;
 import io.reactivex.functions.Consumer;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by 李诗凡.
@@ -61,6 +67,7 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
         EmojiconGridFragment.OnEmojiconClickedListener, EmojiconsFragment.OnEmojiconBackspaceClickedListener {
     // EmojiconTextView继承自AppCompatTextView，而AppCompatTextView继承自TextView
     private EmojiconEditText mEditEmojicon;
+    private OkHttpClient okHttpClient;
     private EditText etQQ;
     private EditText etPhone;
     private TextView textView;
@@ -69,10 +76,10 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
     private Button button;
     private boolean hasClick;
     private String string;
-    private String text;
+    private String user;
     private String qq;
     private String phone;
-    private String flag;
+    private String content;
     private Intent intent;
     private LinearLayout linearLayout;
     private int maxSelectNum = 3;
@@ -97,7 +104,8 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
             textView.setText(string);
         }
         initWidget();
-
+        //创建OkHttpClient对象
+        okHttpClient = new OkHttpClient();
     }
 
     //设置监听器
@@ -150,6 +158,8 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
                 break;
             // 提交按钮
             case R.id.btn_feedback:
+
+                sendMessageAboutFeedback();
                 emojiconEditText.setText("");
                 textView.setText("");
                 etPhone.setText("");
@@ -159,7 +169,6 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
                     selectList.clear();
                     adapter.notifyDataSetChanged();
                 }
-                Toast.makeText(this, "反馈已提交，请耐心等待结果！！", Toast.LENGTH_SHORT).show();
                 break;
             // 返回上一级
             case R.id.iv_feedback_back:
@@ -168,37 +177,59 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    //发送反馈消息的异步处理类
-    private class sendMessage extends AsyncTask {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //获取控件值
-            qq = etQQ.getText().toString();
-            phone = etPhone.getText().toString();
-            flag = textView.getText().toString();
-            text = emojiconEditText.getText().toString();
-        }
-
-        @Override
-        protected Object doInBackground(Object[] objects) {
-            URL url = null;
-            try {
-                url = new URL((String) objects[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                //设置Http请求方式 GET,POST,DELETE
-                //默认get请求
-                connection.setRequestMethod("POST");
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+    //发送反馈消息的处理类
+    private void sendMessageAboutFeedback() {
+        FormBody formBody = new FormBody.Builder()
+                .add("userId", "666")
+//                .add("flag", textView.getText().toString())
+                .add("content", emojiconEditText.getText().toString())
+                .add("qq", etQQ.getText().toString())
+                .add("phone", etPhone.getText().toString())
+                .build();
+        Request request = new Request.Builder()
+                .url(Constant.NEWS_URL + "feedback/add_feedback")
+                .post(formBody)
+                .build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("报错状态", "222221");
                 e.printStackTrace();
             }
-            return null;
-        }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String string = response.body().string();
+                //返回状态  判断反馈是否插入到数据库
+                int state = 1;
+                try {
+                    JSONObject jsonObject = new JSONObject(string);
+                    state = jsonObject.getInt("state");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.e("返回的状态值", "" + state);
+                if (state == 0) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(FeedBackActivity.this, "网络有误，提交反馈失败！", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(FeedBackActivity.this, "反馈已提交，请耐心等待结果！！", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+        Log.e("tishi ", "结束");
     }
+
 
     private void setEmojiconFragment(boolean useSystemDefault) {
         getSupportFragmentManager()
