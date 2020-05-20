@@ -6,13 +6,14 @@
     android:orientation="vertical">
 
     <View
+        android:background="@color/color_green"
         android:layout_width="match_parent"
         android:layout_height="25dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#fff">
+        android:background="@color/color_green">
 
         <TextView
             android:layout_width="wrap_content"

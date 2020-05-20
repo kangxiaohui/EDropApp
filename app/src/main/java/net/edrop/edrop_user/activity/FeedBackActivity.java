@@ -35,6 +35,7 @@ import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.adapter.GridImageAdapter;
 import net.edrop.edrop_user.entity.FullyGridLayoutManager;
 import net.edrop.edrop_user.utils.Constant;
+import net.edrop.edrop_user.utils.SharedPreferencesUtils;
 import net.edrop.edrop_user.utils.SystemTransUtil;
 
 import org.json.JSONException;
@@ -55,6 +56,7 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import xyz.bboylin.universialtoast.UniversalToast;
 
 /**
  * Created by 李诗凡.
@@ -179,12 +181,14 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
 
     //发送反馈消息的处理类
     private void sendMessageAboutFeedback() {
+        SharedPreferencesUtils sp = new SharedPreferencesUtils(FeedBackActivity.this, "loginInfo");
+        int userId = sp.getInt("userId");
         FormBody formBody = new FormBody.Builder()
-                .add("userId", "666")
+                .add("userId", String.valueOf(userId))
 //                .add("flag", textView.getText().toString())
-                .add("content", emojiconEditText.getText().toString())
-                .add("qq", etQQ.getText().toString())
-                .add("phone", etPhone.getText().toString())
+                .add("content", emojiconEditText.getText().toString().trim())
+                .add("qq", etQQ.getText().toString().trim())
+                .add("phone", etPhone.getText().toString().trim())
                 .build();
         Request request = new Request.Builder()
                 .url(Constant.NEWS_URL + "feedback/add_feedback")
@@ -194,15 +198,16 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.e("报错状态", "222221");
+                Log.e("报错状态", "报错了");
                 e.printStackTrace();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String string = response.body().string();
+                Log.e("反馈字符",string);
                 //返回状态  判断反馈是否插入到数据库
-                int state = 1;
+                int state = 0;
                 try {
                     JSONObject jsonObject = new JSONObject(string);
                     state = jsonObject.getInt("state");
@@ -214,20 +219,24 @@ public class FeedBackActivity extends AppCompatActivity implements View.OnClickL
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(FeedBackActivity.this, "网络有误，提交反馈失败！", Toast.LENGTH_SHORT).show();
+                            UniversalToast.makeText(FeedBackActivity.this, "网络有误，提交反馈失败！", UniversalToast.LENGTH_SHORT,
+                                    UniversalToast.EMPHASIZE).showError();
                         }
                     });
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(FeedBackActivity.this, "反馈已提交，请耐心等待结果！！", Toast.LENGTH_SHORT).show();
+                            UniversalToast.makeText(FeedBackActivity.this, "反馈已提交，请耐心等待结果！！", UniversalToast.LENGTH_SHORT,
+                                    UniversalToast.EMPHASIZE)
+                                    .setLeftIconRes(R.drawable.ic_check_circle_white_24dp)
+                                    .show();
+                            finish();
                         }
                     });
                 }
             }
         });
-        Log.e("tishi ", "结束");
     }
 
 
