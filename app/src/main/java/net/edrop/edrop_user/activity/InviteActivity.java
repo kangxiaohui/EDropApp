@@ -9,10 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.hyphenate.exceptions.HyphenateException;
 
 import net.edrop.edrop_user.R;
@@ -27,7 +29,7 @@ import java.util.List;
 import xyz.bboylin.universialtoast.UniversalToast;
 
 public class InviteActivity extends AppCompatActivity {
-
+    private EaseTitleBar easeTitleBar;
     private ListView lv_invite;
     private InviteAdapter inviteAdapter;
     private LocalBroadcastManager mLBM;
@@ -47,9 +49,24 @@ public class InviteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_invite);
         initView();
         initDate();
+        setListener();
     }
+
+    private void setListener() {
+        easeTitleBar.getLeftImage().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InviteActivity.this, FriendListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
     private void initView() {
         lv_invite = findViewById(R.id.lv_invite);
+        easeTitleBar = findViewById(R.id.ease_add);
     }
 
     private void initDate() {
@@ -170,15 +187,6 @@ public class InviteActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mLBM.unregisterReceiver(InviteChangedReceiver);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
     }
 
 }

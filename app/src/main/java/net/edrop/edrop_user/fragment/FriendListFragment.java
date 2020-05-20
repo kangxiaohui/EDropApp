@@ -118,7 +118,7 @@ public class FriendListFragment extends EaseContactListFragment {
         });
 
         //注册广播
-        mLBM = LocalBroadcastManager.getInstance(getActivity());
+        mLBM = LocalBroadcastManager.getInstance(getContext());
         mLBM.registerReceiver(ContactInviteChangeReceiver, new IntentFilter(Constant.CONTACT_INVITE_CHANGED));
         mLBM.registerReceiver(ContactChangeReceiver, new IntentFilter(Constant.CONTACT_CHANGED));
 
