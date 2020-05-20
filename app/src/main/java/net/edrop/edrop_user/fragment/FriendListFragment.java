@@ -180,11 +180,12 @@ public class FriendListFragment extends EaseContactListFragment {
             for (IMUserInfo contact : contacts) {
                 EaseUser easeUser = new EaseUser(contact.getHxid());
                 contactsMap.put(contact.getHxid(), easeUser);
+                Log.e("easeUser",easeUser.toString());
             }
             setContactsMap(contactsMap);
 
             //刷新页面
-            refresh();
+//            refresh();
         }
     }
 

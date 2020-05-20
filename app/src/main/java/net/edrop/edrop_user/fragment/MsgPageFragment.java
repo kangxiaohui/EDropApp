@@ -4,7 +4,9 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.hyphenate.EMMessageListener;
@@ -33,10 +35,24 @@ public class MsgPageFragment extends EaseConversationListFragment {
         return fragment;
     }
 
+    //修改悬浮按钮的颜色
+    private ColorStateList getColorStateListTest(int colorRes) {
+        int[][] states = new int[][]{
+                new int[]{android.R.attr.state_enabled}, // enabled
+                new int[]{-android.R.attr.state_enabled}, // disabled
+                new int[]{-android.R.attr.state_checked}, // unchecked
+                new int[]{android.R.attr.state_pressed}  // pressed
+        };
+        int color = ContextCompat.getColor(getContext(), colorRes);
+        int[] colors = new int[]{color, color, color, color};
+        return new ColorStateList(states, colors);
+    }
+
     private void setListener() {
         fab01Add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fab01Add.setBackgroundTintList(getColorStateListTest(R.color.color_green));
                 fab01Add.setImageResource(isAdd ? R.mipmap.ic_add_white_24dp : R.mipmap.ic_close_white_24dp);
                 isAdd = !isAdd;
                 rlFriend.setVisibility(isAdd ? View.VISIBLE : View.GONE);
@@ -50,11 +66,13 @@ public class MsgPageFragment extends EaseConversationListFragment {
         });
         //悬浮按钮监听事件
         for (int i = 0; i < fabId.length; i++) {
+            fab[i].setBackgroundTintList(getColorStateListTest(R.color.color_green));
             fab[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     rlFriend.setVisibility(View.GONE);
                     fab01Add.setImageResource(R.mipmap.ic_add_white_24dp);
+                    fab01Add.setBackgroundTintList(getColorStateListTest(R.color.color_green));
                     isAdd = false;
                 }
             });
@@ -67,6 +85,7 @@ public class MsgPageFragment extends EaseConversationListFragment {
                 startActivity(intent);
                 rlFriend.setVisibility(View.GONE);
                 fab01Add.setImageResource(R.mipmap.ic_add_white_24dp);
+                fab01Add.setBackgroundTintList(getColorStateListTest(R.color.color_green));
                 isAdd = false;
             }
         });
@@ -78,6 +97,7 @@ public class MsgPageFragment extends EaseConversationListFragment {
                 startActivity(intent);
                 rlFriend.setVisibility(View.GONE);
                 fab01Add.setImageResource(R.mipmap.ic_add_white_24dp);
+                fab01Add.setBackgroundTintList(getColorStateListTest(R.color.color_green));
                 isAdd = false;
 
             }
@@ -100,7 +120,6 @@ public class MsgPageFragment extends EaseConversationListFragment {
         for (int i = 0; i < fabId.length; i++) {
             fab[i] =  getView().findViewById(fabId[i]);
         }
-//        toChatActivity();
     }
 
     @Override
@@ -109,6 +128,7 @@ public class MsgPageFragment extends EaseConversationListFragment {
         initview2();
         initData();
         setListener();
+        fab01Add.setBackgroundTintList(getColorStateListTest(R.color.color_green));
         titleBar.removeAllViews();
         //跳转到会话详情页面
         setConversationListItemClickListener(new EaseConversationListItemClickListener() {
