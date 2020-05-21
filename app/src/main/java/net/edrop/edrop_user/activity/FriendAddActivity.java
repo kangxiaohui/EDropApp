@@ -1,7 +1,7 @@
 package net.edrop.edrop_user.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -14,8 +14,8 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
 
 import net.edrop.edrop_user.R;
-import net.edrop.edrop_user.model.bean.IMUserInfo;
 import net.edrop.edrop_user.model.Model;
+import net.edrop.edrop_user.model.bean.IMUserInfo;
 import net.edrop.edrop_user.utils.SystemTransUtil;
 
 import xyz.bboylin.universialtoast.UniversalToast;

@@ -1,8 +1,8 @@
 package net.edrop.edrop_user.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -22,22 +22,13 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
-import net.edrop.edrop_user.utils.QQConfig;
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.entity.QQUser;
+import net.edrop.edrop_user.utils.QQConfig;
 import net.edrop.edrop_user.utils.SystemTransUtil;
-
-import java.io.IOException;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
-import static net.edrop.edrop_user.utils.Constant.BASE_URL;
 
 public class PhoneLoginActivity extends Activity implements View.OnClickListener{
     private String APPKEY = "2d3bde91c4a25";

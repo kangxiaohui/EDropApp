@@ -7,8 +7,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.tencent.connect.UserInfo;
-
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.model.bean.IMUserInfo;
 import net.edrop.edrop_user.model.bean.InvitationInfo;

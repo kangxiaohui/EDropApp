@@ -1,6 +1,7 @@
 package net.edrop.edrop_user.model;
 
 import android.content.Context;
+
 import net.edrop.edrop_user.model.bean.IMUserInfo;
 import net.edrop.edrop_user.model.dao.UserAccountDao;
 import net.edrop.edrop_user.model.db.DBManager;

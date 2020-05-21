@@ -1,16 +1,11 @@
 package net.edrop.edrop_user.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -19,9 +14,6 @@ import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.entity.Competition;
 import net.edrop.edrop_user.utils.Constant;
 import net.edrop.edrop_user.utils.SystemTransUtil;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.Serializable;

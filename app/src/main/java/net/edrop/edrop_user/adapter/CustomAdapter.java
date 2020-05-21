@@ -1,7 +1,6 @@
 package net.edrop.edrop_user.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.entity.Competition;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CustomAdapter extends BaseAdapter {

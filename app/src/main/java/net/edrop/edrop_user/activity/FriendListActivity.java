@@ -2,8 +2,6 @@ package net.edrop.edrop_user.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.KeyEvent;
 
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.fragment.FriendListFragment;

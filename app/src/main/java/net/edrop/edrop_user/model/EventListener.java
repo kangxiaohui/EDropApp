@@ -5,17 +5,12 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.hyphenate.EMContactListener;
-import com.hyphenate.EMGroupChangeListener;
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMMucSharedFile;
-import com.tencent.connect.UserInfo;
 
 import net.edrop.edrop_user.model.bean.IMUserInfo;
 import net.edrop.edrop_user.model.bean.InvitationInfo;
 import net.edrop.edrop_user.utils.Constant;
 import net.edrop.edrop_user.utils.SpUtils;
-
-import java.util.List;
 
 //全局事件监听类
 public class EventListener {

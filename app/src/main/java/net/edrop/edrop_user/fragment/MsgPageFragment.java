@@ -104,7 +104,6 @@ public class MsgPageFragment extends EaseConversationListFragment {
         });
     }
 
-
     @SuppressLint("ResourceType")
     private void initData() {
         addFriendTranslate1 = (AnimatorSet) AnimatorInflater.loadAnimator(getActivity(), R.anim.add_friend_anim);
@@ -123,13 +122,18 @@ public class MsgPageFragment extends EaseConversationListFragment {
     }
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void setUpView() {
+        super.setUpView();
         initview2();
         initData();
         setListener();
         fab01Add.setBackgroundTintList(getColorStateListTest(R.color.color_green));
         titleBar.removeAllViews();
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
         //跳转到会话详情页面
         setConversationListItemClickListener(new EaseConversationListItemClickListener() {
             @Override
@@ -137,7 +141,6 @@ public class MsgPageFragment extends EaseConversationListFragment {
                 Intent intent = new Intent(getActivity(), ChatViewActivity.class);
                 //传递参数
                 intent.putExtra(EaseConstant.EXTRA_USER_ID,conversation.conversationId());
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });

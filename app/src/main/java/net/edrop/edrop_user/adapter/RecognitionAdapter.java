@@ -2,8 +2,6 @@ package net.edrop.edrop_user.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.entity.NewsList;

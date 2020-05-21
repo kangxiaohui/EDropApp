@@ -11,13 +11,6 @@ import android.widget.Toast;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.model.Model;
 import net.edrop.edrop_user.utils.Constant;
@@ -27,6 +20,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static net.edrop.edrop_user.utils.Constant.REGISTER_SUCCESS;
 

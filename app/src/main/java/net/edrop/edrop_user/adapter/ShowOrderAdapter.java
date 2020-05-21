@@ -1,11 +1,8 @@
 package net.edrop.edrop_user.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import net.edrop.edrop_user.R;
-import net.edrop.edrop_user.activity.ChatViewActivity;
-import net.edrop.edrop_user.entity.Employee;
-import net.edrop.edrop_user.entity.NewsList;
 import net.edrop.edrop_user.entity.Order;
 import net.edrop.edrop_user.utils.Constant;
 import net.edrop.edrop_user.utils.SharedPreferencesUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.sql.Timestamp;

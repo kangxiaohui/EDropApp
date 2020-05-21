@@ -36,13 +36,13 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
+import net.edrop.edrop_user.R;
+import net.edrop.edrop_user.entity.QQUser;
+import net.edrop.edrop_user.entity.User;
 import net.edrop.edrop_user.model.Model;
 import net.edrop.edrop_user.model.bean.IMUserInfo;
 import net.edrop.edrop_user.utils.Constant;
 import net.edrop.edrop_user.utils.QQConfig;
-import net.edrop.edrop_user.R;
-import net.edrop.edrop_user.entity.QQUser;
-import net.edrop.edrop_user.entity.User;
 import net.edrop.edrop_user.utils.SharedPreferencesUtils;
 import net.edrop.edrop_user.utils.SystemTransUtil;
 

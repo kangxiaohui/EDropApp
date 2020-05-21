@@ -3,7 +3,6 @@ package net.edrop.edrop_user.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;

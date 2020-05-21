@@ -3,7 +3,6 @@ package net.edrop.edrop_user.model.dao;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import net.edrop.edrop_user.model.bean.IMUserInfo;
 import net.edrop.edrop_user.model.db.DBHelper;

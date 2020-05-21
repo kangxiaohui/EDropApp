@@ -1,8 +1,5 @@
 package net.edrop.edrop_user.entity;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.io.Serializable;
 
 public class Competition implements Serializable {

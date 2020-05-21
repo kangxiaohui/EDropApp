@@ -1,7 +1,6 @@
 package net.edrop.edrop_user.jpush;
 
 import android.content.Context;
-import android.util.Log;
 
 import cn.jpush.android.api.CustomMessage;
 import cn.jpush.android.api.NotificationMessage;

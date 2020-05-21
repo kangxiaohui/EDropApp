@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
-
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.utils.ShareAppToOther;
 import net.edrop.edrop_user.utils.SystemTransUtil;
