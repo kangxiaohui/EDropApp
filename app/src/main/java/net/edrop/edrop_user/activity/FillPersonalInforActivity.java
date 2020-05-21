@@ -85,6 +85,7 @@ public class FillPersonalInforActivity extends AppCompatActivity implements Easy
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private LayoutInflater mInflater;
+    private ImageView fillInfoFinish;
     private List<String> mTitleList = new ArrayList<String>();//页卡标题集合
     private View view1, view2, view3;//页卡视图
     private List<View> mViewList = new ArrayList<>();//页卡视图集合
@@ -353,6 +354,7 @@ public class FillPersonalInforActivity extends AppCompatActivity implements Easy
     }
 
     private void setLinstener() {
+        fillInfoFinish.setOnClickListener(new MyLinsener());
         etChangePhone.setOnClickListener(new MyLinsener());
         btnSave.setOnClickListener(new MyLinsener());
         btnOk.setOnClickListener(new MyLinsener());
@@ -387,6 +389,9 @@ public class FillPersonalInforActivity extends AppCompatActivity implements Easy
             switch (view.getId()) {
                 case R.id.et_phone_select:
                     etChangePhone.setCursorVisible(true);//设置光标可见
+                    break;
+                case R.id.fill_info_finish:
+                    finish();
                     break;
                 case R.id.tv_select:
                     hideKeyboard();
@@ -771,6 +776,7 @@ public class FillPersonalInforActivity extends AppCompatActivity implements Easy
         mViewPager = (ViewPager) findViewById(R.id.vp_view);
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mInflater = LayoutInflater.from(this);
+        fillInfoFinish = findViewById(R.id.fill_info_finish);
     }
 
     /***

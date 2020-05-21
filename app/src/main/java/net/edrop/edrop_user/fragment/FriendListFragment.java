@@ -185,7 +185,7 @@ public class FriendListFragment extends EaseContactListFragment {
             setContactsMap(contactsMap);
 
             //刷新页面
-//            refresh();
+            refresh();
         }
     }
 
