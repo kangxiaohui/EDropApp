@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:background="@mipmap/ic_launcher" />
+        <TextView
+            android:text="易扔官方"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:textColor="@color/color_green"
+            android:layout_marginLeft="8dp"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/list_title_time"
+            android:gravity="bottom|right"
+            android:layout_weight="1"
+            android:paddingRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <net.edrop.edrop_user.utils.CommunityGridView
+        android:layout_marginTop="10dp"
+        android:id="@+id/list_item_grid_view"
+        android:layout_width="fill_parent"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="@dimen/size_30"
+        android:numColumns="3"
+        android:layout_height="wrap_content">
+
+    </net.edrop.edrop_user.utils.CommunityGridView>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/size_20"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/list_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
+        <TextView
+            android:id="@+id/tv_expand_or_fold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginRight="@dimen/size_15"
+            android:textColor="@color/color_green"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+            <ImageView
+            android:id="@+id/community_zan"
+            android:src="@drawable/community_zan"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="30dp" />
+
+            <ImageView
+                android:id="@+id/community_discuss"
+                android:src="@drawable/community_discuss"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="30dp" />
+            <ImageView
+                android:id="@+id/community_share"
+                android:src="@drawable/share"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="30dp" />
+
+        </LinearLayout>
+        
+    </LinearLayout>
+
+</LinearLayout>

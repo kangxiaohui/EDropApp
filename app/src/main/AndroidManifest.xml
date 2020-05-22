@@ -252,7 +252,8 @@
         <!-- </>值来自开发者平台取得的AppKey -->
         <activity android:name=".activity.FriendAddActivity" />
         <activity android:name=".activity.FriendListActivity" />
-        <activity android:name=".activity.InviteActivity"/>
+        <activity android:name=".activity.InviteActivity" />
+        <activity android:name=".activity.ShowAnnimgsActivity"/>
     </application>
 
 </manifest>
