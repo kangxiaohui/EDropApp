@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="25dp"
-                android:src="@mipmap/ic_contacts_list"
+                android:src="@drawable/ic_format_list_bulleted_black_24dp"
                 app:backgroundTint="#7FFFAA"
                 app:elevation="5dp"
                 app:fabSize="mini" />
@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="25dp"
-                android:src="@mipmap/ic_contacts_add"
+                android:src="@drawable/ic_add_black_24dp"
                 app:backgroundTint="#008B8B"
                 app:elevation="5dp"
                 app:fabSize="mini" />

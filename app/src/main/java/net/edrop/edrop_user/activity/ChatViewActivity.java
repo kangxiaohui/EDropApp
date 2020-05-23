@@ -1,10 +1,5 @@
 package net.edrop.edrop_user.activity;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -14,10 +9,10 @@ import android.view.View;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseChatFragment;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 
 import net.edrop.edrop_user.R;
-import net.edrop.edrop_user.utils.Constant;
 import net.edrop.edrop_user.utils.SystemTransUtil;
 
 public class ChatViewActivity extends FragmentActivity {
@@ -31,7 +26,6 @@ public class ChatViewActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         new SystemTransUtil().trans(ChatViewActivity.this);
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_chat_view);
         initData();
         initListener();
@@ -98,20 +92,5 @@ public class ChatViewActivity extends FragmentActivity {
                 return null;
             }
         });
-
-        //如果当前类型为群聊
-        if(mChatType == EaseConstant.CHATTYPE_GROUP){
-            //注册退群广播
-            BroadcastReceiver ExitGroupReceiver = new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    if(mHxid.equals(intent.getStringExtra(Constant.GROUP_ID))){
-                        //结束当前页面
-                        finish();
-                    }
-                }
-            };
-            mLBM.registerReceiver(ExitGroupReceiver,new IntentFilter(Constant.EXIT_GROUP));
-        }
     }
 }

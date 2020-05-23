@@ -129,4 +129,12 @@ public class EaseTitleBar extends RelativeLayout{
     public void setRightImage(ImageView rightImage) {
         this.rightImage = rightImage;
     }
+
+    public RelativeLayout getTitleLayout() {
+        return titleLayout;
+    }
+
+    public void setTitleLayout(RelativeLayout titleLayout) {
+        this.titleLayout = titleLayout;
+    }
 }

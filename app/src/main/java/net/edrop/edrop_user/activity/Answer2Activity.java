@@ -7,7 +7,6 @@ import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.edrop.edrop_user.R;
@@ -28,7 +27,6 @@ public class Answer2Activity extends AppCompatActivity {
     private RecyclerView text_rv;
     private TextView currentNum;
     private AnswerAdapter myAdapter;
-    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +36,6 @@ public class Answer2Activity extends AppCompatActivity {
         findViews();
         initData();
         initRv();
-        setLinstener();
-    }
-
-    private void setLinstener() {
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     public void initData() {
@@ -67,7 +55,6 @@ public class Answer2Activity extends AppCompatActivity {
     }
 
     public void findViews() {
-        imageView = findViewById(R.id.answer2_finish);
         text_rv = findViewById(R.id.text_rv);
         currentNum = findViewById(R.id.cureentNum);
     }

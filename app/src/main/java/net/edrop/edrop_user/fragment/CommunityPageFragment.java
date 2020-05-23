@@ -49,7 +49,7 @@ public class CommunityPageFragment extends Fragment {
     private int currentPage=1;
     private int pageSize=2;
     private int[] image = {R.drawable.default_head_img6, R.drawable.default_head_img4, R.drawable.default_head_img1,
-            R.drawable.default_head_img2, R.drawable.default_head_img3 ,R.drawable.default_head_img5,
+            R.drawable.default_head_img2, R.drawable.default_head_img3 , R.drawable.default_head_img5,
             R.drawable.logo, R.drawable.logo};
     private List<Map<String, Object>> imagelist = new ArrayList<Map<String, Object>>();
 

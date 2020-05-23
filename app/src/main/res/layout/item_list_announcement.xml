@@ -76,7 +76,7 @@
             android:layout_height="30dp">
 
             <ImageView
-            android:id="@+id/community_zan"
+            android:id="@+id/community_praise"
             android:src="@drawable/community_zan"
             android:layout_weight="1"
             android:layout_width="0dp"

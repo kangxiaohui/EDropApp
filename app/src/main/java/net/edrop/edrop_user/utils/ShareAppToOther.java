@@ -11,11 +11,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.widget.Toast;
 
 import net.edrop.edrop_user.R;
 
 import java.util.List;
+
+import xyz.bboylin.universialtoast.UniversalToast;
 
 /**
  * Created by mysterious
@@ -82,8 +83,7 @@ public class ShareAppToOther {
                           String appname, String msgTitle, String msgText, int type,
                           Bitmap drawable) {
         if (!packageName.isEmpty() && !isAvilible(context, packageName)) {// 判断APP是否存在
-            Toast.makeText(context, "请先安装" + appname, Toast.LENGTH_SHORT)
-                    .show();
+            UniversalToast.makeText(context, "请先安装" + appname, UniversalToast.LENGTH_SHORT).showWarning();
             return;
         }
         Intent intent = new Intent("android.intent.action.SEND");
