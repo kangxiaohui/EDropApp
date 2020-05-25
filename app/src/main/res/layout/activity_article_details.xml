@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="页面细节展示"
+            android:text="文章细节"
             android:textColor="@color/white"
             android:textSize="20sp" />
 

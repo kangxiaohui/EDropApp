@@ -60,19 +60,15 @@ public class CommunityPageFragment extends Fragment {
             R.drawable.default_head_img2, R.drawable.default_head_img3, R.drawable.default_head_img5,
             R.drawable.logo, R.drawable.logo};
     private List<Map<String, Object>> imagelist = new ArrayList<Map<String, Object>>();
-    private Handler handler = new Handler() {
+    private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                if ((int) msg.obj != 0) {
-                    UniversalToast.makeText(myView.getContext(), "已加载" + (int) msg.obj + "条", UniversalToast.LENGTH_SHORT).showSuccess();
+            if (msg.what==1){
+                if ((int)msg.obj==0){
+                    UniversalToast.makeText(myView.getContext(),"亲，已经没有更多了",UniversalToast.LENGTH_SHORT).showSuccess();
+                }else {
+                    UniversalToast.makeText(myView.getContext(),"更新了"+msg.obj+"条数据",UniversalToast.LENGTH_SHORT).showSuccess();
                 }
-                if ((int) msg.obj == 0) {
-                    UniversalToast.makeText(myView.getContext(), "已经给不了亲更多了", UniversalToast.LENGTH_SHORT).showWarning();
-                }
-            }
-            if (msg.what ==2){
-                UniversalToast.makeText(myView.getContext(), "加载完成，已是最新", UniversalToast.LENGTH_SHORT).showSuccess();
             }
         }
     };
@@ -94,8 +90,8 @@ public class CommunityPageFragment extends Fragment {
         okHttpClient = new OkHttpClient();
         initView();
         initData();
+        requestData(currentPage, pageSize);
         setListener();
-        requestData(currentPage, pageSize, 2);
         return myView;
     }
 
@@ -107,14 +103,14 @@ public class CommunityPageFragment extends Fragment {
                 articles.clear();
                 imagelist.clear();
                 initData();
-                requestData(1, 5, 1);
+                requestData(1, 5);
             }
         });
         //监听上拉加载更多
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                requestData(++currentPage, pageSize, 2);
+                requestData(++currentPage, pageSize);
             }
         });
     }
@@ -129,8 +125,6 @@ public class CommunityPageFragment extends Fragment {
         userId = sp.getInt("userId");
         for (int i = 0; i < 5; i++) {  //for循环添加
             HashMap<String, Object> map = new HashMap<String, Object>();
-            //将url转换为drawable
-            //...
             map.put("image", image[i]);
             imagelist.add(map);
         }
@@ -139,7 +133,7 @@ public class CommunityPageFragment extends Fragment {
         articlesRecyclerView.setAdapter(listViewAdapter);
     }
 
-    private void requestData(int pageNum, int pageSize, final int stateCode) {
+    private void requestData(int pageNum, int pageSize) {
         FormBody formBody = new FormBody.Builder()
                 .add("userId", String.valueOf(userId))
                 .add("pageNum", String.valueOf(pageNum))
@@ -161,15 +155,6 @@ public class CommunityPageFragment extends Fragment {
                 String articleList = response.body().string();
                 try {
                     JSONArray jsonArray = new JSONArray(new JSONObject(articleList).getString("articles"));
-                    Message message = new Message();
-                    if (stateCode == 2) {
-                        message.what = 1;
-                        message.obj = jsonArray.length();
-                    } else {
-                        message.what = 2;
-                        message.obj = jsonArray.length();
-                    }
-                    handler.sendMessage(message);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         Log.e("article", jsonObject.toString());
@@ -186,6 +171,10 @@ public class CommunityPageFragment extends Fragment {
                         article.setDatetime(getTime(jsonObject.getString("publish_date")));
                         articles.add(article);
                     }
+                    Message message = new Message();
+                    message.what = 1;
+                    message.obj = jsonArray.length();
+                    handler.sendMessage(message);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -203,19 +192,19 @@ public class CommunityPageFragment extends Fragment {
                 String[] date = publish_date.substring(0, publish_date.length() - 2).split(" ");
                 String[] ymd = date[0].split("-");
                 if (year > Integer.parseInt(ymd[0])) {
-                    return "发布于" + Math.abs(year - Integer.parseInt(ymd[0])) + "年前";
+                    return "发布于" + (year - Integer.parseInt(ymd[0])) + "年前";
                 } else if (month > Integer.parseInt(ymd[1])) {
-                    return "发布于" + Math.abs(month - Integer.parseInt(ymd[1])) + "月前";
+                    return "发布于" + (month - Integer.parseInt(ymd[1])) + "月前";
                 } else if (day > Integer.parseInt(ymd[2])) {
-                    return "发布于" + Math.abs(day - Integer.parseInt(ymd[2])) + "天前";
+                    return "发布于" + (day - Integer.parseInt(ymd[2])) + "天前";
                 }
                 String[] hms = date[1].split(":");
                 if (hour > Integer.parseInt(ymd[0])) {
-                    return "发布于" + Math.abs(hour - Integer.parseInt(hms[0])) + "时前";
+                    return "发布于" + (hour - Integer.parseInt(hms[0])) + "时前";
                 } else if (minute > Integer.parseInt(ymd[1])) {
-                    return "发布于" + Math.abs(minute - Integer.parseInt(hms[1])) + "分前";
+                    return "发布于" + (minute - Integer.parseInt(hms[1])) + "分前";
                 } else if (second > Integer.parseInt(ymd[2])) {
-                    return "发布于" + Math.abs(second - Integer.parseInt(hms[2])) + "秒前";
+                    return "发布于" + (second - Integer.parseInt(hms[2])) + "秒前";
                 }
                 return null;
             }
@@ -228,7 +217,7 @@ public class CommunityPageFragment extends Fragment {
         if (msg.equals("列表")) {
             //更新界面
             listViewAdapter.notifyDataSetChanged();
-            refreshLayout.finishLoadMore();//结束上拉加载更多动画
+            refreshLayout.finishLoadMore();
             refreshLayout.finishRefresh();
         }
     }
