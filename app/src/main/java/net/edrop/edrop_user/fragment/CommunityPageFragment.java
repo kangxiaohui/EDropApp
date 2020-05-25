@@ -94,8 +94,29 @@ public class CommunityPageFragment extends Fragment {
         okHttpClient = new OkHttpClient();
         initView();
         initData();
+        setListener();
         requestData(currentPage, pageSize, 2);
         return myView;
+    }
+
+    private void setListener() {
+        //下拉刷新
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                articles.clear();
+                imagelist.clear();
+                initData();
+                requestData(1, 5, 1);
+            }
+        });
+        //监听上拉加载更多
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                requestData(++currentPage, pageSize, 2);
+            }
+        });
     }
 
     private void initView() {
@@ -116,22 +137,6 @@ public class CommunityPageFragment extends Fragment {
         listViewAdapter = new CommunityViewAdapter(getActivity(), R.layout.item_list_announcement, articles, imagelist);
         articlesRecyclerView.setLayoutManager(new LinearLayoutManager(myView.getContext(), LinearLayoutManager.VERTICAL, false));
         articlesRecyclerView.setAdapter(listViewAdapter);
-
-        //下拉刷新
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                articles.clear();
-                requestData(1, 5, 1);
-            }
-        });
-        //监听上拉加载更多
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                requestData(++currentPage, pageSize, 2);
-            }
-        });
     }
 
     private void requestData(int pageNum, int pageSize, final int stateCode) {
@@ -198,19 +203,19 @@ public class CommunityPageFragment extends Fragment {
                 String[] date = publish_date.substring(0, publish_date.length() - 2).split(" ");
                 String[] ymd = date[0].split("-");
                 if (year > Integer.parseInt(ymd[0])) {
-                    return "发布于" + (year - Integer.parseInt(ymd[0])) + "年前";
+                    return "发布于" + Math.abs(year - Integer.parseInt(ymd[0])) + "年前";
                 } else if (month > Integer.parseInt(ymd[1])) {
-                    return "发布于" + (month - Integer.parseInt(ymd[1])) + "月前";
+                    return "发布于" + Math.abs(month - Integer.parseInt(ymd[1])) + "月前";
                 } else if (day > Integer.parseInt(ymd[2])) {
-                    return "发布于" + (day - Integer.parseInt(ymd[2])) + "天前";
+                    return "发布于" + Math.abs(day - Integer.parseInt(ymd[2])) + "天前";
                 }
                 String[] hms = date[1].split(":");
                 if (hour > Integer.parseInt(ymd[0])) {
-                    return "发布于" + (hour - Integer.parseInt(hms[0])) + "时前";
+                    return "发布于" + Math.abs(hour - Integer.parseInt(hms[0])) + "时前";
                 } else if (minute > Integer.parseInt(ymd[1])) {
-                    return "发布于" + (minute - Integer.parseInt(hms[1])) + "分前";
+                    return "发布于" + Math.abs(minute - Integer.parseInt(hms[1])) + "分前";
                 } else if (second > Integer.parseInt(ymd[2])) {
-                    return "发布于" + (second - Integer.parseInt(hms[2])) + "秒前";
+                    return "发布于" + Math.abs(second - Integer.parseInt(hms[2])) + "秒前";
                 }
                 return null;
             }
