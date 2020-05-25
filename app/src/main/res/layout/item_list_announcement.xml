@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     android:paddingTop="5dp"
     android:paddingBottom="5dp">
@@ -46,6 +47,7 @@
     <LinearLayout
         android:layout_marginTop="@dimen/size_20"
         android:orientation="vertical"
+        android:layout_marginLeft="@dimen/size_40"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -53,8 +55,7 @@
             android:id="@+id/list_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="40dp" />
         <TextView
             android:id="@+id/tv_expand_or_fold"
             android:layout_width="match_parent"
@@ -75,28 +76,76 @@
             android:layout_width="match_parent"
             android:layout_height="30dp">
 
-            <ImageView
-            android:id="@+id/community_praise"
-            android:src="@drawable/community_zan"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="30dp" />
-
-            <ImageView
-                android:id="@+id/community_discuss"
-                android:src="@drawable/community_discuss"
-                android:layout_weight="1"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="0dp"
-                android:layout_height="30dp" />
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="3">
+                <ImageView
+                    android:id="@+id/community_praise"
+                    android:src="@drawable/community_zan"
+                    android:layout_width="@dimen/size_30"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:text=" ( "
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/community_praise_count"
+                    android:text="0"
+                    android:textColor="@color/color_green"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:text=" )"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/community_discuss"
+                    android:src="@drawable/community_discuss"
+                    android:layout_width="@dimen/size_30"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:text=" ( "
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/community_discuss_count"
+                    android:text="0"
+                    android:textColor="@color/color_green"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:text=" )"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
             <ImageView
                 android:id="@+id/community_share"
                 android:src="@drawable/share"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:layout_width="0dp"
-                android:layout_height="30dp" />
+                android:layout_height="match_parent" />
 
         </LinearLayout>
         
     </LinearLayout>
-
 </LinearLayout>

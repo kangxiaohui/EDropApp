@@ -90,7 +90,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".activity.LoadingActivity" />
         <activity android:name=".activity.TestPhoneNumActivity" />
         <activity android:name=".activity.FeedBackActivity" />
@@ -140,21 +140,21 @@
         <activity
             android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"/>
+            android:theme="@style/horizontal_slide" />
         <!-- 定位 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote">
-        </service>
+            android:process=":remote"></service>
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="0UvmoZkOxUIFFYji3sXg39XjjLj4GeGf"/>
-        <!--点击查看大图崩溃-->
+            android:value="0UvmoZkOxUIFFYji3sXg39XjjLj4GeGf" />
+        <!-- 点击查看大图崩溃 -->
         <activity
             android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"/>
+            android:theme="@style/horizontal_slide" />
         <!-- 声明SDK所需的receiver -->
         <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
             <intent-filter>
@@ -168,11 +168,11 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
         <!-- 环信集成结束 -->
-
 
 
         <!-- 极光推送 -->
@@ -282,8 +282,9 @@
         <!-- </>值来自开发者平台取得的AppKey -->
         <activity android:name=".activity.FriendAddActivity" />
         <activity android:name=".activity.FriendListActivity" />
-        <activity android:name=".activity.InviteActivity"/>
-        <activity android:name=".activity.ShowAnnimgsActivity"/>
+        <activity android:name=".activity.InviteActivity" />
+        <activity android:name=".activity.ShowAnnimgsActivity" />
+        <activity android:name=".activity.ArticleDetailsActivity"></activity>
     </application>
 
 </manifest>

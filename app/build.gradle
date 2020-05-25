@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'key0'
             keyPassword '123456'
-            storeFile file('D:/LYmystery-EDropApp-master/debug.jks')
+            storeFile file('D:/Android/ProjectLoction/EDropApp/debug.jks')
             storePassword '123456'
         }
     }
@@ -62,6 +62,11 @@ MobSDK {
     SMSSDK {}
 }
 dependencies {
+    //加载动画
+    implementation 'com.zyao89:zloading:1.2.0'
+    //MarkDown
+    implementation 'org.commonjava.googlecode.markdown4j:markdown4j:2.2-cj-1.1'
+    //数据库
     implementation 'com.facebook.stetho:stetho:1.3.1'
     //Toast依赖
     implementation 'com.github.bboylin:UniversalToast:v1.0.9'
@@ -75,6 +80,7 @@ dependencies {
     //反馈picture的依赖
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     //TextInputLayout的依赖
+    //noinspection GradleCompatible
     implementation 'com.android.support:design:28.0.0'
     //DrawerLayout侧边栏中动画效果用到的
     implementation 'com.nineoldandroids:library:2.4.0'

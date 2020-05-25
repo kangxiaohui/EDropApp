@@ -28,19 +28,33 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import net.edrop.edrop_user.R;
+import net.edrop.edrop_user.activity.ArticleDetailsActivity;
 import net.edrop.edrop_user.activity.ShowAnnimgsActivity;
 import net.edrop.edrop_user.entity.Article;
 import net.edrop.edrop_user.utils.CommunityGridView;
+import net.edrop.edrop_user.utils.Constant;
 import net.edrop.edrop_user.utils.ShareAppToOther;
+import net.edrop.edrop_user.utils.SharedPreferencesUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import xyz.bboylin.universialtoast.UniversalToast;
 
 public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdapter.MyViewHolder> {
     private BottomSheetDialog dialog;
+    private OkHttpClient okHttpClient;
     private Activity context;
     private int item_layout;
     private SparseArray<Integer> mTextStateList;//保存文本状态集合
@@ -71,6 +85,7 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        okHttpClient=new OkHttpClient();
         return new MyViewHolder(context.getLayoutInflater().inflate(item_layout, parent, false));
     }
 
@@ -102,6 +117,8 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
             holder.content.setMaxLines(Integer.MAX_VALUE);//设置文本的最大行数，为整数的最大数值
             holder.content.setText(articles.get(position).getContent());
             holder.datetime.setText(articles.get(position).getDatetime());
+            holder.praiseCount.setText(articles.get(position).getPraiseCount());
+            holder.discussCount.setText(articles.get(position).getDiscussCount());
         } else {
             //如果之前已经初始化过了，则使用保存的状态。
             switch (state) {
@@ -120,6 +137,9 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
                     break;
             }
             holder.content.setText(articles.get(position).getContent());
+            holder.datetime.setText(articles.get(position).getDatetime());
+            holder.praiseCount.setText(articles.get(position).getPraiseCount());
+            holder.discussCount.setText(articles.get(position).getDiscussCount());
         }
 
         //全文和收起的点击事件
@@ -138,6 +158,34 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
                 }
             }
         });
+
+        holder.gridView.setOnItemClickListener(new GridViewItemOnClick());   //添加GridView的点击事件
+        holder.discuss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCommentDialog();
+            }
+        });
+        holder.praise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toPraise(position);
+            }
+        });
+        holder.share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toShare();
+            }
+        });
+        holder.content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ArticleDetailsActivity.class);
+                intent.putExtra("articleId",position);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -153,6 +201,8 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
         private ImageView praise;
         private ImageView discuss;
         private ImageView share;
+        private TextView praiseCount;
+        private TextView discussCount;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -162,42 +212,78 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
             praise = itemView.findViewById(R.id.community_praise);
             discuss = itemView.findViewById(R.id.community_discuss);
             share = itemView.findViewById(R.id.community_share);
+            praiseCount =itemView.findViewById(R.id.community_praise_count);
+            discussCount = itemView.findViewById(R.id.community_discuss_count);
             expandOrFold = itemView.findViewById(R.id.tv_expand_or_fold);
             SimpleAdapter simpleAdapter = new SimpleAdapter(context, imagelist, R.layout.item_grid_annimgs,
                     new String[]{"image"}, new int[]{R.id.grid_item_image});
             gridView.setAdapter(simpleAdapter);//给GridView设置适配器
-            gridView.setOnItemClickListener(new GridViewItemOnClick());   //添加GridView的点击事件
-            discuss.setOnClickListener(new View.OnClickListener() {
+        }
+    }
+
+    private void toPraise(int position) {
+        if (articles.get(position).getPraise()){
+            UniversalToast.makeText(context, "不能重复点赞哦", UniversalToast.LENGTH_SHORT).showWarning();
+        }else {
+            SharedPreferencesUtils sp = new SharedPreferencesUtils(context, "loginInfo");
+            int userId = sp.getInt("userId");
+            FormBody formBody = new FormBody.Builder()
+                    .add("userId", String.valueOf(userId))
+                    .add("articleId", String.valueOf(position))
+                    .build();
+            Request request=new Request.Builder()
+                    .url(Constant.NEWS_URL+"/community/like_or_cancel_like")
+                    .post(formBody)
+                    .build();
+            Call call = okHttpClient.newCall(request);
+            call.enqueue(new Callback() {
                 @Override
-                public void onClick(View v) {
-                    showCommentDialog();
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                    context.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            UniversalToast.makeText(context, "服务器错误", UniversalToast.LENGTH_SHORT).showError();
+                            notifyDataSetChanged();
+                        }
+                    });
                 }
-            });
-            praise.setOnClickListener(new View.OnClickListener() {
+
                 @Override
-                public void onClick(View v) {
-                    toPraise();
-                }
-            });
-            share.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    toShare();
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        int state = 0;
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        state = jsonObject.getInt("state");
+                        if (state==1) {
+                            context.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    UniversalToast.makeText(context, "点赞成功", UniversalToast.LENGTH_SHORT).showSuccess();
+                                    notifyDataSetChanged();
+                                }
+                            });
+                        }else{
+                            context.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    UniversalToast.makeText(context, "取消点赞成功", UniversalToast.LENGTH_SHORT).showSuccess();
+                                    notifyDataSetChanged();
+                                }
+                            });
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
-
-    }
-
-    private void toPraise() {
-        UniversalToast.makeText(context, "点赞成功", UniversalToast.LENGTH_SHORT).showSuccess();
     }
 
     private void toShare() {
         ShareAppToOther shareAppToOther = new ShareAppToOther(context);
         shareAppToOther.shareWeChatFriend("EDrop", "我正在EDrop玩耍，快来和我一起玩吧。\n下载地址：https://www.lanzous.com/b0aqeodib \n" +
                 "密码:90rv", ShareAppToOther.TEXT, drawableToBitmap(context.getResources().getDrawable(R.drawable.logo)));
-//        UniversalToast.makeText(context, "分享成功", UniversalToast.LENGTH_SHORT).showSuccess();
     }
 
     public static final Bitmap drawableToBitmap(Drawable drawable) {
