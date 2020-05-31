@@ -108,9 +108,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 markdown = response.body().string();
-                Log.e("markdown1",markdown);
-                markdown = new String(response.body().string().getBytes("UTF-8"), "UTF-8");
-                Log.e("markdown2",markdown);
+                Log.e("markdown",markdown);
                 runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
