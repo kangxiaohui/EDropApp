@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -158,7 +159,6 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
                 }
             }
         });
-
         holder.gridView.setOnItemClickListener(new GridViewItemOnClick());   //添加GridView的点击事件
         holder.discuss.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,7 +182,7 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ArticleDetailsActivity.class);
-                intent.putExtra("articleId",position);
+                intent.putExtra("articleId",articles.get(position).getId());
                 context.startActivity(intent);
             }
         });

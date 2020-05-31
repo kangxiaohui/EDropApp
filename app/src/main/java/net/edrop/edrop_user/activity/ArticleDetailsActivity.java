@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 
@@ -63,9 +64,8 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         try {
             html = new Markdown4jProcessor().process(markdown);
             webView.loadDataWithBaseURL(null,html,"text/html","utf-8",null);
-            webView.getSettings().setJavaScriptEnabled(true);
-            webView.getSettings().setBlockNetworkImage(false);
-            webView.getSettings().setDomStorageEnabled(true);
+            WebSettings webSettings = webView.getSettings();
+            webSettings.setDomStorageEnabled(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -107,9 +107,10 @@ public class ArticleDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-//                markdown = response.body().string();
+                markdown = response.body().string();
+                Log.e("markdown1",markdown);
                 markdown = new String(response.body().string().getBytes("UTF-8"), "UTF-8");
-                Log.e("markdown",markdown);
+                Log.e("markdown2",markdown);
                 runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
