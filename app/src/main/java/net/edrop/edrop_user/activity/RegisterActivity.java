@@ -27,6 +27,7 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import xyz.bboylin.universialtoast.UniversalToast;
 
 import static net.edrop.edrop_user.utils.Constant.REGISTER_SUCCESS;
 
@@ -125,7 +126,7 @@ public class RegisterActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(RegisterActivity.this, "注册环信成功", Toast.LENGTH_SHORT).show();
+                            UniversalToast.makeText(RegisterActivity.this, "注册环信成功", Toast.LENGTH_SHORT).showSuccess();
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -137,7 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(RegisterActivity.this, "注册环信失败", Toast.LENGTH_SHORT).show();
+                            UniversalToast.makeText(RegisterActivity.this, "注册环信失败", Toast.LENGTH_SHORT).showError();
                         }
                     });
                 }

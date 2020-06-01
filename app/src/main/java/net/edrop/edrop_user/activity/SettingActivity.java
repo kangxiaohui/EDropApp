@@ -2,6 +2,7 @@ package net.edrop.edrop_user.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,9 +11,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.android.tu.loadingdialog.LoadingDailog;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.zyao89.view.zloading.ZLoadingDialog;
+import com.zyao89.view.zloading.Z_TYPE;
 
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.model.Model;
@@ -85,7 +87,7 @@ public class SettingActivity extends AppCompatActivity {
 //                    intent = new Intent(SettingActivity.this, VersionActivity.class);
 //                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                    startActivity(intent);
-                    Toast.makeText(SettingActivity.this, "已是最新版本", Toast.LENGTH_SHORT).show();
+                    UniversalToast.makeText(SettingActivity.this, "已是最新版本", Toast.LENGTH_SHORT).showSuccess();
                     break;
                 case R.id.rl_setting_feedback://反馈消息
                     intent = new Intent(SettingActivity.this, FeedBackActivity.class);
@@ -139,12 +141,13 @@ public class SettingActivity extends AppCompatActivity {
 
                     @Override
                     public void onProgress(int progress, String status) {
-                        LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(SettingActivity.this)
-                                .setMessage("注销中，请稍后...")
-                                .setCancelable(true)
-                                .setCancelOutside(true);
-                        LoadingDailog dialog=loadBuilder.create();
-                        dialog.show();
+                        ZLoadingDialog dialog = new ZLoadingDialog(SettingActivity.this);
+                        dialog.setLoadingBuilder(Z_TYPE.DOUBLE_CIRCLE)//设置类型
+                                .setLoadingColor(Color.parseColor("#00FF7F"))
+                                .setHintText("注销中，请稍后...")
+                                .setHintTextColor(Color.GRAY)
+                                .setDialogBackgroundColor(Color.parseColor("#cc111111"))
+                                .show();
                     }
 
                     @Override
@@ -152,7 +155,7 @@ public class SettingActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(SettingActivity.this,"注销失败",Toast.LENGTH_SHORT).show();
+                                UniversalToast.makeText(SettingActivity.this,"注销失败",Toast.LENGTH_SHORT).showError();
                             }
                         });
                     }

@@ -36,6 +36,7 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import xyz.bboylin.universialtoast.UniversalToast;
 
 /**
  * Created by mysterious
@@ -144,7 +145,7 @@ public class ServicePageFragment extends Fragment {
                     call.enqueue(new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-
+                            e.printStackTrace();
                         }
 
                         @Override
@@ -164,11 +165,10 @@ public class ServicePageFragment extends Fragment {
                     startActivity(intent3);
                     break;
                 case R.id.ll_service_ticket:
-                    Toast.makeText(view.getContext(), "暂无可用优惠券", Toast.LENGTH_SHORT).show();
+                    UniversalToast.makeText(view.getContext(), "暂无可用优惠券", Toast.LENGTH_SHORT).showWarning();
                     break;
                 case R.id.ll_service_kefu:
-                    Toast.makeText(view.getContext(), "联系客服", Toast.LENGTH_SHORT).show();
-
+                    UniversalToast.makeText(view.getContext(), "联系客服", Toast.LENGTH_SHORT).showSuccess();
                     break;
                 case R.id.ll_service_share:
                     ShareAppToOther shareAppToOther = new ShareAppToOther(view.getContext());
