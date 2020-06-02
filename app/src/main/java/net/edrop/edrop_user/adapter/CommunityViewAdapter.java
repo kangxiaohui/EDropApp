@@ -1,6 +1,8 @@
 package net.edrop.edrop_user.adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -27,9 +29,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.edrop.edrop_user.R;
+import net.edrop.edrop_user.activity.ArticleDetailCommentActivity;
 import net.edrop.edrop_user.activity.ArticleDetailsActivity;
+import net.edrop.edrop_user.activity.MainActivity;
 import net.edrop.edrop_user.activity.ShowAnnimgsActivity;
 import net.edrop.edrop_user.entity.Article;
 import net.edrop.edrop_user.utils.CommunityGridView;
@@ -58,6 +63,7 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
     private OkHttpClient okHttpClient;
     private Activity context;
     private int item_layout;
+    private boolean praise = false;
     private SparseArray<Integer> mTextStateList;//保存文本状态集合
     private List<Article> articles;
     private List<Map<String, Object>> imagelist;
@@ -67,7 +73,7 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
     private final int STATE_COLLAPSED = 2;//折叠状态
     private final int STATE_EXPANDED = 3;//展开状态
 
-    public CommunityViewAdapter(Activity context, int item_layout, List<Article> articles,List<Map<String, Object>> imagelist) {
+    public CommunityViewAdapter(Activity context, int item_layout, List<Article> articles, List<Map<String, Object>> imagelist) {
         this.context = context;
         this.item_layout = item_layout;
         this.articles = articles;
@@ -86,7 +92,7 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        okHttpClient=new OkHttpClient();
+        okHttpClient = new OkHttpClient();
         return new MyViewHolder(context.getLayoutInflater().inflate(item_layout, parent, false));
     }
 
@@ -163,7 +169,7 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
         holder.discuss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCommentDialog();
+                showCommentDialog(position);
             }
         });
         holder.praise.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +188,15 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ArticleDetailsActivity.class);
-                intent.putExtra("articleId",articles.get(position).getId());
+                intent.putExtra("articleId", articles.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
+        holder.discussCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ArticleDetailCommentActivity.class);
+                intent.putExtra("articleId", articles.get(position).getId());
                 context.startActivity(intent);
             }
         });
@@ -193,7 +207,7 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
         return position;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView content;
         private CommunityGridView gridView;
         private TextView datetime;
@@ -212,7 +226,7 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
             praise = itemView.findViewById(R.id.community_praise);
             discuss = itemView.findViewById(R.id.community_discuss);
             share = itemView.findViewById(R.id.community_share);
-            praiseCount =itemView.findViewById(R.id.community_praise_count);
+            praiseCount = itemView.findViewById(R.id.community_praise_count);
             discussCount = itemView.findViewById(R.id.community_discuss_count);
             expandOrFold = itemView.findViewById(R.id.tv_expand_or_fold);
             SimpleAdapter simpleAdapter = new SimpleAdapter(context, imagelist, R.layout.item_grid_annimgs,
@@ -222,62 +236,64 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
     }
 
     private void toPraise(int position) {
-        if (articles.get(position).getPraise()){
-            UniversalToast.makeText(context, "不能重复点赞哦", UniversalToast.LENGTH_SHORT).showWarning();
-        }else {
-            SharedPreferencesUtils sp = new SharedPreferencesUtils(context, "loginInfo");
-            int userId = sp.getInt("userId");
-            FormBody formBody = new FormBody.Builder()
-                    .add("userId", String.valueOf(userId))
-                    .add("articleId", String.valueOf(position))
-                    .build();
-            Request request=new Request.Builder()
-                    .url(Constant.NEWS_URL+"/community/like_or_cancel_like")
-                    .post(formBody)
-                    .build();
-            Call call = okHttpClient.newCall(request);
-            call.enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
+        SharedPreferencesUtils sp = new SharedPreferencesUtils(context, "loginInfo");
+        int userId = sp.getInt("userId");
+        FormBody formBody = new FormBody.Builder()
+                .add("userId", String.valueOf(userId))
+                .add("articleId", String.valueOf(position))
+                .build();
+        Request request = new Request.Builder()
+                .url(Constant.NEWS_URL + "/community/like_or_cancel_like")
+                .post(formBody)
+                .build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                context.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        UniversalToast.makeText(context, "服务器错误", UniversalToast.LENGTH_SHORT).showError();
+                        notifyDataSetChanged();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (praise) {
                     context.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            UniversalToast.makeText(context, "服务器错误", UniversalToast.LENGTH_SHORT).showError();
-                            notifyDataSetChanged();
-                        }
-                    });
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    try {
-                        int state = 0;
-                        JSONObject jsonObject = new JSONObject(response.body().string());
-                        state = jsonObject.getInt("state");
-                        if (state==1) {
-                            context.runOnUiThread(new Runnable() {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setTitle("确认");
+                            builder.setMessage("是否取消点赞？");
+                            builder.setPositiveButton("是", new DialogInterface.OnClickListener() {
                                 @Override
-                                public void run() {
-                                    UniversalToast.makeText(context, "点赞成功", UniversalToast.LENGTH_SHORT).showSuccess();
-                                    notifyDataSetChanged();
-                                }
-                            });
-                        }else{
-                            context.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    praise = false;
                                     UniversalToast.makeText(context, "取消点赞成功", UniversalToast.LENGTH_SHORT).showSuccess();
                                     notifyDataSetChanged();
                                 }
                             });
+                            builder.setNegativeButton("否", null);
+                            builder.show();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    });
+                } else {
+                    context.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            praise = true;
+                            UniversalToast.makeText(context, "点赞成功", UniversalToast.LENGTH_SHORT).showSuccess();
+                            notifyDataSetChanged();
+                        }
+                    });
                 }
-            });
-        }
+            }
+        });
+
     }
 
     private void toShare() {
@@ -308,18 +324,15 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
         }
     }
 
-    private void showCommentDialog(){
+    private void showCommentDialog(final int position) {
         dialog = new BottomSheetDialog(context);
-        View commentView = LayoutInflater.from(context).inflate(R.layout.comment_dialog_layout,null);
+        View commentView = LayoutInflater.from(context).inflate(R.layout.comment_dialog_layout, null);
         final EditText commentText = (EditText) commentView.findViewById(R.id.dialog_comment_et);
         final Button bt_comment = (Button) commentView.findViewById(R.id.dialog_comment_bt);
         dialog.setContentView(commentView);
-        /**
-         * 解决bsd显示不全的情况
-         */
         View parent = (View) commentView.getParent();
         BottomSheetBehavior behavior = BottomSheetBehavior.from(parent);
-        commentView.measure(0,0);
+        commentView.measure(0, 0);
         behavior.setPeekHeight(commentView.getMeasuredHeight());
 
         bt_comment.setOnClickListener(new View.OnClickListener() {
@@ -327,14 +340,11 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
             @Override
             public void onClick(View view) {
                 String commentContent = commentText.getText().toString().trim();
-                if(!TextUtils.isEmpty(commentContent)){
-
-                    //commentOnWork(commentContent);
+                if (!TextUtils.isEmpty(commentContent)) {
                     dialog.dismiss();
-//                    CommentDetailBean detailBean = new CommentDetailBean("小明", commentContent,"刚刚");
-//                    adapter.addTheCommentData(detailBean);
+                    sendComment(commentContent, position);
                     UniversalToast.makeText(context, "评论成功", UniversalToast.LENGTH_SHORT).showSuccess();
-                }else {
+                } else {
                     UniversalToast.makeText(context, "评论内容不能为空！", UniversalToast.LENGTH_SHORT).showWarning();
                 }
             }
@@ -347,9 +357,9 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!TextUtils.isEmpty(charSequence) && charSequence.length()>2){
+                if (!TextUtils.isEmpty(charSequence) && charSequence.length() > 2) {
                     bt_comment.setBackgroundColor(Color.parseColor("#FFB568"));
-                }else {
+                } else {
                     bt_comment.setBackgroundColor(Color.parseColor("#D8D8D8"));
                 }
             }
@@ -360,5 +370,28 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
             }
         });
         dialog.show();
+    }
+
+    private void sendComment(String commentContent,int position) {
+        FormBody formBody = new FormBody.Builder()
+                .add("userId", String.valueOf(new SharedPreferencesUtils(context, "loginInfo").getInt("userId")))
+                .add("articleId", String.valueOf(articles.get(position).getId()))
+                .add("articleContent", commentContent)
+                .build();
+        Request request = new Request.Builder()
+                .url(Constant.NEWS_URL + "community/comment_article ")
+                .post(formBody)
+                .build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+            }
+        });
     }
 }

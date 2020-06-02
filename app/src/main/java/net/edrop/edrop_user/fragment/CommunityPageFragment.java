@@ -55,7 +55,7 @@ public class CommunityPageFragment extends Fragment {
     private SmartRefreshLayout refreshLayout;
     private OkHttpClient okHttpClient;
     private int currentPage = 1;
-    private int pageSize = 5;
+    private int pageSize = 2;
     private int[] image = {R.drawable.default_head_img6, R.drawable.default_head_img4, R.drawable.default_head_img1,
             R.drawable.default_head_img2, R.drawable.default_head_img3, R.drawable.default_head_img5,
             R.drawable.logo, R.drawable.logo};
@@ -100,10 +100,10 @@ public class CommunityPageFragment extends Fragment {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                articles.clear();
+                currentPage = 1;
                 imagelist.clear();
                 initData();
-                requestData(1, 5);
+                requestData(1, 2);
             }
         });
         //监听上拉加载更多

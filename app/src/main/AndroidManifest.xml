@@ -62,7 +62,9 @@
         <activity
             android:name=".activity.IntroductionEDropActivity"
             android:theme="@style/Anim_translate" />
-        <activity android:name=".activity.Main2Activity" />
+        <activity
+            android:name=".activity.Main2Activity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".activity.LoginActivity" />
         <activity
             android:name=".activity.RubbishDesc01Activity"
@@ -145,7 +147,7 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -284,7 +286,8 @@
         <activity android:name=".activity.FriendListActivity" />
         <activity android:name=".activity.InviteActivity" />
         <activity android:name=".activity.ShowAnnimgsActivity" />
-        <activity android:name=".activity.ArticleDetailsActivity"/>
+        <activity android:name=".activity.ArticleDetailsActivity" />
+        <activity android:name=".activity.ArticleDetailCommentActivity" android:windowSoftInputMode="adjustPan|stateHidden"/>
     </application>
 
 </manifest>

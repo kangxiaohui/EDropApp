@@ -124,13 +124,14 @@ public class ShowOrderAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 employeeId = order.getEmployeeId();
-                postFormData();//添加消息列表
+                String employeeName = order.getEmployee().getUsername();
+                postFormData(employeeName);//添加消息列表
             }
         });
         return convertView;
     }
 
-    private void postFormData() {
+    private void postFormData(String employeeName) {
         okHttpClient = new OkHttpClient();
         SharedPreferencesUtils loginInfo = new SharedPreferencesUtils(context, "loginInfo");
         int userId = loginInfo.getInt("userId");
