@@ -166,7 +166,6 @@
                         android:layout_weight="1">
 
                         <ImageView
-                            android:id="@+id/wechat"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginLeft="30dp"
@@ -180,7 +179,6 @@
                         android:layout_weight="1">
 
                         <ImageView
-                            android:id="@+id/weibo"
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:layout_marginLeft="30dp"

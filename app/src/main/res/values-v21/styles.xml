@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>
-    </style>
+
     <style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog">
         <item name="android:colorPrimary">@color/color_green</item>
         <item name="android:colorPrimaryDark">@color/color_green</item>

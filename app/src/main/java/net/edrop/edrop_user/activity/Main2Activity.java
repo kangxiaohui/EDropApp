@@ -1,8 +1,10 @@
 package net.edrop.edrop_user.activity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -20,12 +22,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nineoldandroids.view.ViewHelper;
+import com.sunchen.netbus.annotation.NetSubscribe;
+import com.sunchen.netbus.type.Mode;
 
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.adapter.FragmentIndexAdapter;
 import net.edrop.edrop_user.fragment.CommunityPageFragment;
 import net.edrop.edrop_user.fragment.HomePageFragment;
 import net.edrop.edrop_user.fragment.MainMenuLeftFragment;
+import net.edrop.edrop_user.fragment.MessageFragment;
 import net.edrop.edrop_user.fragment.MsgPageFragment;
 import net.edrop.edrop_user.fragment.ServicePageFragment;
 import net.edrop.edrop_user.utils.MyViewPager;
@@ -35,7 +40,9 @@ import net.edrop.edrop_user.utils.SystemTransUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main2Activity extends AppCompatActivity {
+import xyz.bboylin.universialtoast.UniversalToast;
+
+public class Main2Activity extends BaseActivity {
     //自定义tabhost属性
     private FragmentIndexAdapter mFragmentIndexAdapter;
     private List<Fragment> mFragments;
@@ -59,6 +66,8 @@ public class Main2Activity extends AppCompatActivity {
     private ImageView imgSweep;
     private long waitTime = 2000;
     private long touchTime = 0;
+    private MessageFragment mMessageFragment;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +112,7 @@ public class Main2Activity extends AppCompatActivity {
 
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(Main2Activity.this,"您不完善信息，后续工作将无法进行",Toast.LENGTH_SHORT).show();
+                    UniversalToast.makeText(Main2Activity.this,"您不完善信息，后续工作将无法进行",UniversalToast.LENGTH_SHORT).showWarning();
                 }
             });
             AlertDialog alertDialog = adBuilder.create();// 通过构造器创建AlertDialog
@@ -364,4 +373,36 @@ public class Main2Activity extends AppCompatActivity {
         public boolean onTouch(MotionEvent ev);
     }
 
+    @NetSubscribe(mode = Mode.NONE)
+    public void noneNet() {
+        showdialog();
+    }
+
+    private void showdialog() {
+        if (mMessageFragment == null) {
+            mMessageFragment = new MessageFragment();
+        }
+        if (bundle == null) {
+            bundle = new Bundle();
+        }
+        bundle.putString("content", "系统检测到您尚未连接网络，请到设置中进行网络设置，是否跳转？");
+        bundle.putString("title", "警告");
+        mMessageFragment.setOnResultListener(new OnItemMsgResultListener());
+        mMessageFragment.setArguments(bundle);
+        // 显示提示窗口
+        mMessageFragment.show(getFragmentManager(), "");
+    }
+
+    class OnItemMsgResultListener implements MessageFragment.OnMsgResultListener {
+
+        public OnItemMsgResultListener() {
+        }
+
+        @Override
+        public void onResultFun(int resultCode) {
+            if (resultCode == Activity.RESULT_OK) {
+                startActivity(new Intent(Settings.ACTION_SETTINGS));
+            }
+        }
+    }
 }

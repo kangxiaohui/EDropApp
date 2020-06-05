@@ -6,11 +6,17 @@
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/iv_recognition_finish"
+        android:layout_marginTop="@dimen/size_30"
+        android:src="@drawable/setting_left"
+        android:layout_marginLeft="@dimen/size_15"
+        android:layout_width="@dimen/size_30"
+        android:layout_height="@dimen/size_30" />
+    <ImageView
         android:id="@+id/iv_photo"
         android:layout_width="@dimen/size_120"
         android:layout_height="@dimen/size_150"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/size_55" />
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,8 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/size_20"
-        android:layout_marginTop="@dimen/size_20"
         android:layout_marginRight="@dimen/size_10"
+        android:layout_marginTop="@dimen/size_20"
         android:gravity="right"
         android:text="识别不准?直接搜索"
 

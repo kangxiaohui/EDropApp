@@ -4,94 +4,104 @@
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/size_20"
     android:background="#FAFAFA">
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/size_20"
-        android:layout_marginRight="@dimen/size_20"
-        android:background="#FAFAFA"
-        android:orientation="vertical">
-        <!--图片-->
-        <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/rubbish_certain" />
-        <!--名称-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="湿垃圾/厨余垃圾/易腐垃圾/餐厨垃圾"
-            android:textColor="@color/black"
-            android:textSize="23dp"
-            android:textStyle="bold" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/size_20"
+            android:layout_marginRight="@dimen/size_20"
+            android:background="#FAFAFA"
+            android:orientation="vertical">
+            <!--图片-->
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/rubbish_certain" />
+            <!--名称-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="湿垃圾/厨余垃圾/易腐垃圾/餐厨垃圾"
+                android:textColor="@color/black"
+                android:textSize="23dp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="HOUSEFOOD"
-            android:textColor="@color/gray"
-            android:textSize="23dp"
-            android:textStyle="bold" />
-        <!--简介-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="25dp"
-            android:text="简单介绍"
-            android:textColor="@color/black"
-            android:textSize="23dp"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="HOUSEFOOD"
+                android:textColor="@color/gray"
+                android:textSize="23dp"
+                android:textStyle="bold" />
+            <!--简介-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:text="简单介绍"
+                android:textColor="@color/black"
+                android:textSize="23dp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="@dimen/size_100"
-            android:layout_height="3dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="6dp"
-            android:background="@color/gray"/>
+            <TextView
+                android:layout_width="@dimen/size_100"
+                android:layout_height="3dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="6dp"
+                android:background="@color/gray"/>
 
-        <TextView
-            android:lineSpacingExtra="@dimen/size_5"
-            android:layout_width="270dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="即易腐垃圾、厨余垃圾、餐厨垃圾，是指食材废料、剩菜剩饭、过期食品、瓜皮果核、花卉绿植、中药药渣等生物质生活废弃物。"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
-        <!--投放要求-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="25dp"
-            android:text="投放要求"
-            android:textColor="@color/black"
-            android:textSize="23dp"
-            android:textStyle="bold" />
+            <TextView
+                android:lineSpacingExtra="@dimen/size_5"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="即易腐垃圾、厨余垃圾、餐厨垃圾，是指食材废料、剩菜剩饭、过期食品、瓜皮果核、花卉绿植、中药药渣等生物质生活废弃物。"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+            <!--投放要求-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:text="投放要求"
+                android:textColor="@color/black"
+                android:textSize="23dp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="@dimen/size_100"
-            android:layout_height="3dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="6dp"
-            android:background="@color/gray" />
+            <TextView
+                android:layout_width="@dimen/size_100"
+                android:layout_height="3dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="6dp"
+                android:background="@color/gray" />
 
-        <TextView
-            android:lineSpacingExtra="@dimen/size_10"
-            android:singleLine="false"
-            android:layout_width="270dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="1.纯流质的食物垃圾，如牛奶等，应直接倒进下水口\n2.有包装的湿垃圾应将包装去除后分类投放，包装物请投放到对应的可回收物或者干垃圾容器"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
+            <TextView
+                android:lineSpacingExtra="@dimen/size_10"
+                android:singleLine="false"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="1.纯流质的食物垃圾，如牛奶等，应直接倒进下水口\n2.有包装的湿垃圾应将包装去除后分类投放，包装物请投放到对应的可回收物或者干垃圾容器"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
         </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_rubbish_4"
+            android:layout_margin="10dp"
+            android:src="@drawable/setting_left"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+    </FrameLayout>
 </ScrollView>

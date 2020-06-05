@@ -7,6 +7,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
+import com.sunchen.netbus.NetStatusBus;
 
 import net.edrop.edrop_user.model.Model;
 
@@ -21,6 +22,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Stetho.initializeWithDefaults(this);
+        NetStatusBus.getInstance().init(this);
         //极光推送
         JPushInterface.setDebugMode(true);//打开调试模式
         JPushInterface.init(this);

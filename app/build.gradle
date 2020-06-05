@@ -14,7 +14,7 @@ android {
     aaptOptions.useNewCruncher = false
     defaultConfig {
         applicationId "net.edrop.edrop_user"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -36,7 +36,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled false // 是否混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -67,6 +67,8 @@ MobSDK {
     SMSSDK {}
 }
 dependencies {
+    //网络监听
+    implementation 'com.sunchen:netstatusbus:0.1.5'
     //加载动画
     implementation 'com.zyao89:zloading:1.2.0'
     //MarkDown

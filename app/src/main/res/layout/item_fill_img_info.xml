@@ -57,7 +57,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <GridLayout
-                android:id="@+id/grid_view"
                 android:layout_marginTop="@dimen/size_10"
                 android:layout_marginLeft="@dimen/size_30"
                 android:layout_marginRight="@dimen/size_30"

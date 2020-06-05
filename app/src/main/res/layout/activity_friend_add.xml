@@ -16,9 +16,9 @@
             android:id="@+id/add_friend_finish"
             android:layout_marginLeft="@dimen/size_10"
             android:layout_centerVertical="true"
-            android:src="@drawable/left"
+            android:src="@drawable/whiteleft"
             android:layout_alignParentLeft="true"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/size_30"
             android:layout_height="@dimen/size_30" />
 
         <TextView
@@ -43,6 +43,8 @@
 
     <EditText
         android:id="@+id/et_add_name"
+        android:theme="@style/MyEditText"
+        android:textCursorDrawable="@drawable/cursor_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -59,7 +61,7 @@
             android:id="@+id/iv_add_photo"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/em_default_avatar" />
+            android:src="@drawable/ease_default_avatar" />
 
         <TextView
             android:id="@+id/tv_add_name"

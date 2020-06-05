@@ -28,6 +28,7 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import xyz.bboylin.universialtoast.UniversalToast;
 
 import static net.edrop.edrop_user.utils.Constant.ORDER_STATE_FINISH;
 import static net.edrop.edrop_user.utils.Constant.ORDER_STATE_NO_FINISH;
@@ -123,9 +124,10 @@ public class ShowOrderAdapter extends BaseAdapter {
         viewHolder.worker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                employeeId = order.getEmployeeId();
-                String employeeName = order.getEmployee().getUsername();
-                postFormData(employeeName);//添加消息列表
+                UniversalToast.makeText(context,"添加商家成功，请到聊天界面查看",UniversalToast.LENGTH_SHORT).showSuccess();
+//                employeeId = order.getEmployeeId();
+//                String employeeName = order.getEmployee().getUsername();
+//                postFormData(employeeName);//添加消息列表
             }
         });
         return convertView;

@@ -59,12 +59,13 @@
         <activity android:name=".activity.AboutEDropActivity" />
         <activity android:name=".activity.FillPersonalInforActivity" />
         <activity android:name=".activity.SearchRubblishActivity" />
+        <activity android:name=".activity.MyMoneyActivity" />
         <activity
             android:name=".activity.IntroductionEDropActivity"
             android:theme="@style/Anim_translate" />
         <activity
             android:name=".activity.Main2Activity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".activity.LoginActivity" />
         <activity
             android:name=".activity.RubbishDesc01Activity"
@@ -287,7 +288,10 @@
         <activity android:name=".activity.InviteActivity" />
         <activity android:name=".activity.ShowAnnimgsActivity" />
         <activity android:name=".activity.ArticleDetailsActivity" />
-        <activity android:name=".activity.ArticleDetailCommentActivity" android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity
+            android:name=".activity.ArticleDetailCommentActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name=".activity.CopyrightInformationActivity"/>
     </application>
 
 </manifest>

@@ -33,9 +33,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -55,11 +53,7 @@ public class CommunityPageFragment extends Fragment {
     private SmartRefreshLayout refreshLayout;
     private OkHttpClient okHttpClient;
     private int currentPage = 1;
-    private int pageSize = 2;
-    private int[] image = {R.drawable.default_head_img6, R.drawable.default_head_img4, R.drawable.default_head_img1,
-            R.drawable.default_head_img2, R.drawable.default_head_img3, R.drawable.default_head_img5,
-            R.drawable.logo, R.drawable.logo};
-    private List<Map<String, Object>> imagelist = new ArrayList<Map<String, Object>>();
+    private int pageSize = 5;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -101,9 +95,8 @@ public class CommunityPageFragment extends Fragment {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 currentPage = 1;
-                imagelist.clear();
                 initData();
-                requestData(1, 2);
+                requestData(1, 5);
             }
         });
         //监听上拉加载更多
@@ -123,12 +116,7 @@ public class CommunityPageFragment extends Fragment {
     private void initData() {
         SharedPreferencesUtils sp = new SharedPreferencesUtils(myView.getContext(), "loginInfo");
         userId = sp.getInt("userId");
-        for (int i = 0; i < 5; i++) {  //for循环添加
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("image", image[i]);
-            imagelist.add(map);
-        }
-        listViewAdapter = new CommunityViewAdapter(getActivity(), R.layout.item_list_announcement, articles, imagelist);
+        listViewAdapter = new CommunityViewAdapter(getActivity(), R.layout.item_list_announcement, articles);
         articlesRecyclerView.setLayoutManager(new LinearLayoutManager(myView.getContext(), LinearLayoutManager.VERTICAL, false));
         articlesRecyclerView.setAdapter(listViewAdapter);
     }
@@ -192,19 +180,19 @@ public class CommunityPageFragment extends Fragment {
                 String[] date = publish_date.substring(0, publish_date.length() - 2).split(" ");
                 String[] ymd = date[0].split("-");
                 if (year > Integer.parseInt(ymd[0])) {
-                    return "发布于" + (year - Integer.parseInt(ymd[0])) + "年前";
+                    return "发布于" + Math.abs(year - Integer.parseInt(ymd[0])) + "年前";
                 } else if (month > Integer.parseInt(ymd[1])) {
-                    return "发布于" + (month - Integer.parseInt(ymd[1])) + "月前";
+                    return "发布于" + Math.abs(month - Integer.parseInt(ymd[1])) + "月前";
                 } else if (day > Integer.parseInt(ymd[2])) {
-                    return "发布于" + (day - Integer.parseInt(ymd[2])) + "天前";
+                    return "发布于" + Math.abs(day - Integer.parseInt(ymd[2])) + "天前";
                 }
                 String[] hms = date[1].split(":");
                 if (hour > Integer.parseInt(ymd[0])) {
-                    return "发布于" + (hour - Integer.parseInt(hms[0])) + "时前";
+                    return "发布于" + Math.abs(hour - Integer.parseInt(hms[0])) + "时前";
                 } else if (minute > Integer.parseInt(ymd[1])) {
-                    return "发布于" + (minute - Integer.parseInt(hms[1])) + "分前";
+                    return "发布于" + Math.abs(minute - Integer.parseInt(hms[1])) + "分前";
                 } else if (second > Integer.parseInt(ymd[2])) {
-                    return "发布于" + (second - Integer.parseInt(hms[2])) + "秒前";
+                    return "发布于" + Math.abs(second - Integer.parseInt(hms[2])) + "秒前";
                 }
                 return null;
             }

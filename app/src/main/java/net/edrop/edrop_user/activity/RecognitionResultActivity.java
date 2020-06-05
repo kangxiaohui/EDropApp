@@ -31,6 +31,7 @@ public class RecognitionResultActivity extends Activity {
     private List<NewsList> dataSource;
     private ListView listView;
     private TextView tvNoFind;
+    private ImageView ivFinish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,7 @@ public class RecognitionResultActivity extends Activity {
 
 
     private void initViews() {
+        ivFinish = findViewById(R.id.iv_recognition_finish);
         imgPhoto = findViewById(R.id.iv_photo);
         listView = findViewById(R.id.lv_recognition);
         tvNoFind = findViewById(R.id.tv_nofind);
@@ -88,9 +90,17 @@ public class RecognitionResultActivity extends Activity {
     }
 
     private void setListener() {
+        ivFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(RecognitionResultActivity.this, Main2Activity.class));
+            }
+        });
         tvNoFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
                 Intent intent = new Intent(RecognitionResultActivity.this, SearchRubblishActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

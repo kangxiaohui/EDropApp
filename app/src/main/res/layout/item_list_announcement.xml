@@ -47,15 +47,15 @@
     <LinearLayout
         android:layout_marginTop="@dimen/size_20"
         android:orientation="vertical"
-        android:layout_marginLeft="@dimen/size_40"
+        android:layout_marginLeft="@dimen/size_25"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/list_title_text"
+            android:layout_marginRight="@dimen/size_25"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="40dp" />
+            android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/tv_expand_or_fold"
             android:layout_width="match_parent"

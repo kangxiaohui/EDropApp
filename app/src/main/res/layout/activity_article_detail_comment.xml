@@ -12,11 +12,12 @@
         android:layout_height="50dp"
         android:background="@color/color_green">
         <ImageView
+            android:layout_marginLeft="@dimen/size_10"
             android:id="@+id/article_comment_back"
-            android:layout_width="35dp"
-            android:layout_height="28dp"
+            android:layout_width="@dimen/size_30"
+            android:layout_height="@dimen/size_30"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/setting_left" />
+            android:src="@drawable/whiteleft" />
         <TextView
             android:layout_marginRight="@dimen/size_40"
             android:layout_width="match_parent"
@@ -27,6 +28,8 @@
             android:textSize="20sp" />
     </LinearLayout>
     <ListView
+        android:layout_marginRight="@dimen/size_10"
+        android:layout_marginLeft="10dp"
         android:id="@+id/article_comment_lv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -42,6 +45,8 @@
         <EditText
             android:id="@+id/et_article_comment"
             android:layout_width="0dp"
+            android:theme="@style/MyEditText"
+            android:textCursorDrawable="@drawable/cursor_style"
             android:layout_weight="4"
             android:layout_height="match_parent" />
         <Button
@@ -50,6 +55,7 @@
             android:text="发送"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/size_5"/>
     </LinearLayout>
 </LinearLayout>

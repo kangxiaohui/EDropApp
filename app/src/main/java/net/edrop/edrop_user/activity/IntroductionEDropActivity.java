@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.adapter.SimpleIntroduceAdapter;
@@ -27,8 +28,15 @@ public class IntroductionEDropActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_introduction_edrop);
+        findViewById(R.id.iv_introduction_finish).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.maincollapsing);
-        collapsingToolbar.setTitle("EDrop简介");
+        collapsingToolbar.setTitle("     EDrop简介");
+        collapsingToolbar.setExpandedTitleMarginTop(10);
         collapsingToolbar.setStatusBarScrimColor(getResources().getColor(R.color.color_green_32BA88));
         collapsingToolbar.setExpandedTitleColor(Color.WHITE);//设置展开后标题的颜色
         rvToDoList = (RecyclerView) findViewById(R.id.rvToDoList);

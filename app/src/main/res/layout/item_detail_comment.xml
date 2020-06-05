@@ -13,15 +13,16 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:layout_margin="@dimen/size_5"
             android:id="@+id/article_comment_head"
-            android:layout_width="@dimen/size_50"
-            android:layout_height="@dimen/size_50"
+            android:layout_width="@dimen/size_60"
+            android:layout_height="@dimen/size_60"
             android:src="@drawable/logo" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/size_8"
+            android:layout_margin="@dimen/size_5"
             android:orientation="vertical">
 
             <LinearLayout
@@ -43,6 +44,7 @@
                     android:id="@+id/article_comment_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="12sp"
                     android:text="2020-6-1 15:56:42" />
             </LinearLayout>
 

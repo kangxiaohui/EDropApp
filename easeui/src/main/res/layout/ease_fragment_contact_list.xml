@@ -12,9 +12,7 @@
         android:layout_height="wrap_content"
         hyphenate:titleBarTitle="@string/address_book" />
 
-    <include
-        android:id="@+id/search_bar_view"
-        layout="@layout/ease_search_bar_with_padding" />
+    <include layout="@layout/ease_search_bar_with_padding" />
 
     <FrameLayout
         android:id="@+id/content_container"

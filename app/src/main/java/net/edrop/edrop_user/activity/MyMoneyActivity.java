@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -27,6 +26,7 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import xyz.bboylin.universialtoast.UniversalToast;
 
 import static net.edrop.edrop_user.utils.Constant.BASE_URL;
 
@@ -57,7 +57,6 @@ public class MyMoneyActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 666) {
-
                 String json = (String) msg.obj;
                 Wallet wallet = new Gson().fromJson(json,Wallet.class);
                 tvMoney.setText(wallet.getMoney()+"");
@@ -91,8 +90,7 @@ public class MyMoneyActivity extends AppCompatActivity {
             //请求成功时回调
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String str = response.body().string();
-
+//                String str = response.body().string();
             }
         });
 
@@ -114,8 +112,7 @@ public class MyMoneyActivity extends AppCompatActivity {
             //请求成功时回调
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String str = response.body().string();
-
+//                String str = response.body().string();
             }
         });
 
@@ -228,10 +225,10 @@ public class MyMoneyActivity extends AppCompatActivity {
                             break;
                     }
                     if (Double.valueOf(tvMoney.getText().toString()) < money) {
-                        Toast.makeText(MyMoneyActivity.this, "余额不足，禁止提款", Toast.LENGTH_SHORT).show();
+                        UniversalToast.makeText(MyMoneyActivity.this, "余额不足，禁止提款", UniversalToast.LENGTH_SHORT).showWarning();
                     } else {
                         tvMoney.setText(Double.valueOf(tvMoney.getText().toString()) - money + "");
-                        Toast.makeText(MyMoneyActivity.this, "提款成功", Toast.LENGTH_SHORT).show();
+                        UniversalToast.makeText(MyMoneyActivity.this, "提款成功", UniversalToast.LENGTH_SHORT).showSuccess();
                     }
                     break;
                 case R.id.btn_go_save_money:
@@ -254,7 +251,7 @@ public class MyMoneyActivity extends AppCompatActivity {
                             break;
                     }
                     tvMoney.setText(Double.valueOf(tvMoney.getText().toString()) + money1 + "");
-                    Toast.makeText(MyMoneyActivity.this, "充值成功", Toast.LENGTH_SHORT).show();
+                    UniversalToast.makeText(MyMoneyActivity.this, "充值成功", UniversalToast.LENGTH_SHORT).showSuccess();
                     break;
                 case R.id.ll_kongbai:
                     One.setVisibility(View.GONE); // 隐藏

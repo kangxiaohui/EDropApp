@@ -16,7 +16,8 @@
 
         <ImageView
             android:id="@+id/show_annimgs_finish"
-            android:src="@drawable/setting_left"
+            android:src="@drawable/whiteleft"
+            android:layout_marginLeft="@dimen/size_10"
             android:layout_gravity="center_vertical"
             android:layout_width="@dimen/size_35"
             android:layout_height="@dimen/size_35" />
@@ -26,6 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
+            android:layout_marginRight="@dimen/size_40"
             android:gravity="center"
             android:text="图片查看器"
             android:textSize="@dimen/size_20" />

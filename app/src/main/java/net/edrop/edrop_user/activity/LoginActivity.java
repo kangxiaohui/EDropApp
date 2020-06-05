@@ -1,5 +1,6 @@
 package net.edrop.edrop_user.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,6 +31,8 @@ import com.android.tu.loadingdialog.LoadingDailog;
 import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.sunchen.netbus.annotation.NetSubscribe;
+import com.sunchen.netbus.type.Mode;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
@@ -39,6 +42,7 @@ import com.tencent.tauth.UiError;
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.entity.QQUser;
 import net.edrop.edrop_user.entity.User;
+import net.edrop.edrop_user.fragment.MessageFragment;
 import net.edrop.edrop_user.model.Model;
 import net.edrop.edrop_user.model.bean.IMUserInfo;
 import net.edrop.edrop_user.utils.Constant;
@@ -64,7 +68,9 @@ import static net.edrop.edrop_user.utils.Constant.LOGIN_SUCCESS;
 import static net.edrop.edrop_user.utils.Constant.PASSWORD_WRONG;
 import static net.edrop.edrop_user.utils.Constant.USER_NO_EXISTS;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
+    private MessageFragment mMessageFragment;
+    private Bundle bundle;
     private TextInputLayout usernameWrapper;
     private TextInputLayout passwordWrapper;
     private Button btnLogin;
@@ -592,4 +598,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return true;
     }
 
+    @NetSubscribe(mode = Mode.NONE)
+    public void noneNet() {
+        showdialog();
+    }
+
+    private void showdialog() {
+        if (mMessageFragment == null) {
+            mMessageFragment = new MessageFragment();
+        }
+        if (bundle == null) {
+            bundle = new Bundle();
+        }
+        bundle.putString("content", "系统检测到您尚未连接网络，请到设置中进行网络设置，是否跳转？");
+        bundle.putString("title", "警告");
+        mMessageFragment.setOnResultListener(new OnItemMsgResultListener());
+        mMessageFragment.setArguments(bundle);
+        // 显示提示窗口
+        mMessageFragment.show(getFragmentManager(), "");
+    }
+
+    class OnItemMsgResultListener implements MessageFragment.OnMsgResultListener {
+
+        public OnItemMsgResultListener() {
+        }
+
+        @Override
+        public void onResultFun(int resultCode) {
+            if (resultCode == Activity.RESULT_OK) {
+                startActivity(new Intent(Settings.ACTION_SETTINGS));
+            }
+        }
+    }
 }

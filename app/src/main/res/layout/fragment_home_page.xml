@@ -29,7 +29,6 @@
             android:layout_height="wrap_content">
 
             <FrameLayout
-                android:id="@+id/frameLayout"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 app:layout_constraintEnd_toEndOf="parent"

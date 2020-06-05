@@ -29,6 +29,7 @@ public class SettingActivity extends AppCompatActivity {
     private RelativeLayout updatelayout;
     private RelativeLayout cachelayout;
     private RelativeLayout feedbacklayout;
+    private RelativeLayout thanklayout;
     private Button button;
     private Intent intent;
 
@@ -47,6 +48,7 @@ public class SettingActivity extends AppCompatActivity {
      * 获取控件对象
      */
     private void findViews() {
+        thanklayout = findViewById(R.id.rl_setting_thank);
         imageView = findViewById(R.id.iv_setting_back);
         aboutlayout = findViewById(R.id.rl_setting_about);
         updatelayout = findViewById(R.id.rl_setting_update);
@@ -65,6 +67,7 @@ public class SettingActivity extends AppCompatActivity {
         feedbacklayout.setOnClickListener(new MyListener());
         cachelayout.setOnClickListener(new MyListener());
         button.setOnClickListener(new MyListener());
+        thanklayout.setOnClickListener(new MyListener());
     }
 
     /**
@@ -84,9 +87,6 @@ public class SettingActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.rl_setting_update://更新信息
-//                    intent = new Intent(SettingActivity.this, VersionActivity.class);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    startActivity(intent);
                     UniversalToast.makeText(SettingActivity.this, "已是最新版本", Toast.LENGTH_SHORT).showSuccess();
                     break;
                 case R.id.rl_setting_feedback://反馈消息
@@ -96,6 +96,11 @@ public class SettingActivity extends AppCompatActivity {
                     break;
                 case R.id.rl_setting_cache://清除缓存
                     intent = new Intent(SettingActivity.this, ClearCacheActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    break;
+                case R.id.rl_setting_thank:
+                    intent = new Intent(SettingActivity.this, CopyrightInformationActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     break;

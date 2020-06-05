@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 首页界面的导航栏布局文件 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_twoversion_home"
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:layout_gravity="center"

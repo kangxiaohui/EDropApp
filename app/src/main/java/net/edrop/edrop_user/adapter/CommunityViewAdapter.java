@@ -29,12 +29,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.activity.ArticleDetailCommentActivity;
 import net.edrop.edrop_user.activity.ArticleDetailsActivity;
-import net.edrop.edrop_user.activity.MainActivity;
 import net.edrop.edrop_user.activity.ShowAnnimgsActivity;
 import net.edrop.edrop_user.entity.Article;
 import net.edrop.edrop_user.utils.CommunityGridView;
@@ -42,13 +40,13 @@ import net.edrop.edrop_user.utils.Constant;
 import net.edrop.edrop_user.utils.ShareAppToOther;
 import net.edrop.edrop_user.utils.SharedPreferencesUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -66,18 +64,23 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
     private boolean praise = false;
     private SparseArray<Integer> mTextStateList;//保存文本状态集合
     private List<Article> articles;
-    private List<Map<String, Object>> imagelist;
     private final int MAX_LINE_COUNT = 3;//最大显示行数
     private final int STATE_UNKNOW = -1;//未知状态
     private final int STATE_NOT_OVERFLOW = 1;//文本行数小于最大可显示行数
     private final int STATE_COLLAPSED = 2;//折叠状态
     private final int STATE_EXPANDED = 3;//展开状态
+    private int[] image = {R.drawable.community_img1, R.drawable.community_img2, R.drawable.community_img3
+            , R.drawable.community_img4, R.drawable.community_img5, R.drawable.community_img6
+            , R.drawable.community_img7, R.drawable.community_img8, R.drawable.community_img9
+            , R.drawable.community_img10, R.drawable.community_img12, R.drawable.community_img13
+            , R.drawable.community_img14, R.drawable.community_img15, R.drawable.community_img16
+            , R.drawable.community_img17, R.drawable.community_img18};
+    private List<Map<String, Object>> imagelist = new ArrayList<Map<String, Object>>();
 
-    public CommunityViewAdapter(Activity context, int item_layout, List<Article> articles, List<Map<String, Object>> imagelist) {
+    public CommunityViewAdapter(Activity context, int item_layout, List<Article> articles) {
         this.context = context;
         this.item_layout = item_layout;
         this.articles = articles;
-        this.imagelist = imagelist;
         mTextStateList = new SparseArray<>();
     }
 
@@ -175,7 +178,7 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
         holder.praise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toPraise(position);
+                toPraise(position, holder);
             }
         });
         holder.share.setOnClickListener(new View.OnClickListener() {
@@ -229,13 +232,21 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
             praiseCount = itemView.findViewById(R.id.community_praise_count);
             discussCount = itemView.findViewById(R.id.community_discuss_count);
             expandOrFold = itemView.findViewById(R.id.tv_expand_or_fold);
+
+            imagelist.clear();
+            Random r = new Random();
+            for (int i = 0; i < r.nextInt(6)+1; i++) {  //for循环添加
+                HashMap<String, Object> map = new HashMap<String, Object>();
+                map.put("image", image[r.nextInt(image.length)]);
+                imagelist.add(map);
+            }
             SimpleAdapter simpleAdapter = new SimpleAdapter(context, imagelist, R.layout.item_grid_annimgs,
                     new String[]{"image"}, new int[]{R.id.grid_item_image});
             gridView.setAdapter(simpleAdapter);//给GridView设置适配器
         }
     }
 
-    private void toPraise(int position) {
+    private void toPraise(final int position, final MyViewHolder holder) {
         SharedPreferencesUtils sp = new SharedPreferencesUtils(context, "loginInfo");
         int userId = sp.getInt("userId");
         FormBody formBody = new FormBody.Builder()
@@ -274,7 +285,9 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
                                 public void onClick(DialogInterface dialog, int which) {
                                     praise = false;
                                     UniversalToast.makeText(context, "取消点赞成功", UniversalToast.LENGTH_SHORT).showSuccess();
-                                    notifyDataSetChanged();
+//                                    Integer praise1 = Integer.parseInt(holder.praiseCount.getText().toString());
+//                                    holder.praiseCount.setText(String.valueOf(praise1-1));
+//                                    notifyItemChanged(position);
                                 }
                             });
                             builder.setNegativeButton("否", null);
@@ -287,7 +300,9 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
                         public void run() {
                             praise = true;
                             UniversalToast.makeText(context, "点赞成功", UniversalToast.LENGTH_SHORT).showSuccess();
-                            notifyDataSetChanged();
+//                            Integer praise1 = Integer.parseInt(holder.praiseCount.getText().toString());
+//                            holder.praiseCount.setText(String.valueOf(praise1+1));
+//                            notifyItemChanged(position);
                         }
                     });
                 }
@@ -358,7 +373,7 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!TextUtils.isEmpty(charSequence) && charSequence.length() > 2) {
-                    bt_comment.setBackgroundColor(Color.parseColor("#FFB568"));
+                    bt_comment.setBackgroundColor(Color.parseColor("#32BA88"));
                 } else {
                     bt_comment.setBackgroundColor(Color.parseColor("#D8D8D8"));
                 }

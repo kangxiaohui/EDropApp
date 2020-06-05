@@ -19,7 +19,6 @@
         android:max="100"
         android:layout_centerHorizontal="true" />
     <TextView
-        android:id="@+id/textView"
         android:layout_below="@id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

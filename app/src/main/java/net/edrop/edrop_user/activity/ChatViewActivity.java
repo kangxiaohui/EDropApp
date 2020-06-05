@@ -9,7 +9,6 @@ import android.view.View;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseChatFragment;
-import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 
 import net.edrop.edrop_user.R;

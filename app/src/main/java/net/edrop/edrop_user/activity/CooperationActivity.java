@@ -14,17 +14,9 @@ import net.edrop.edrop_user.utils.SystemTransUtil;
 import static com.mob.MobSDK.getContext;
 import static net.edrop.edrop_user.fragment.ServicePageFragment.drawableToBitmap;
 
-/**
- * Created by 李诗凡.
- * User: sifannnn
- * Date: 2019/12/17
- * Time: 14:17
- * TODO：商务合作的Activity
- */
 public class CooperationActivity extends AppCompatActivity {
     private ImageView imageViewback;
     private ImageView imageView;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

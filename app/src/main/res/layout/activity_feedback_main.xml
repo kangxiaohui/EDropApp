@@ -21,17 +21,17 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="反馈"
-            android:textColor="#707070"
-            android:textSize="30sp" />
+            android:textColor="#fff"
+            android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/iv_feedback_back"
-            android:layout_width="70px"
-            android:layout_height="70px"
+            android:layout_width="@dimen/size_30"
+            android:layout_height="@dimen/size_30"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:src="@drawable/setting_left" />
+            android:src="@drawable/whiteleft" />
 
     </RelativeLayout>
 
@@ -98,7 +98,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="#fff"
@@ -116,7 +115,6 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/re_feedback"
         android:layout_width="match_parent"
         android:layout_height="130px"
         android:layout_marginBottom="20dp"

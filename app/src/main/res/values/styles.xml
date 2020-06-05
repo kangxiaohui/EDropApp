@@ -29,22 +29,12 @@
     </style>
 
     <!--分享dialog-->
-    <style name="BottomDialog" parent="@style/Base.V7.Theme.AppCompat.Light.Dialog">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-    </style>
     <!--分享dialog-->
-    <style name="BottomDialog.Animation" parent="Animation.AppCompat.Dialog">
-        <item name="android:windowEnterAnimation">@anim/translate_dialog_in</item>
-        <item name="android:windowExitAnimation">@anim/translate_dialog_out</item>
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/color_green</item>
+        <item name="colorControlActivated">@color/color_green</item>
     </style>
-
     <!--透明背景色-->
-    <style name="TransparencyBackground" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@color/common_color_transparent</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
-    </style>
     <!--实现滑入滑出-->
 
     <style name="Anim_translate" parent="ThemeNoTitle">
@@ -96,10 +86,6 @@
     </style>
 
     <!--编辑框下划线样式-->
-    <style name="MyEditText" parent="Theme.AppCompat.Light">
-        <item name="colorControlNormal">@color/color_green</item>
-        <item name="colorControlActivated">@color/color_green</item>
-    </style>
     <style name="main_menu_photo_anim">
         <item name="android:windowEnterAnimation">@anim/photo_dialog_in_anim</item>
         <item name="android:windowExitAnimation">@anim/photo_dialog_out_anim</item>

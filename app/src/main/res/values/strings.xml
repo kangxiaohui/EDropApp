@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">EDrop</string>
-    <string name="title_activity_phone_login">PhoneLoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="introduction_text">
         "EDrop由de_dust2小组合作开发完成.\n\n"
@@ -72,8 +71,39 @@
         "关键操作时可用手机二次验证并收到短信提醒，信息更安全\n"
         "可以选择使用手机号登录及找回密码，更方便轻松\n"
     </string>
-    <string name="title_activity_tset">TsetActivity</string>
     <string name="select_photo">♟选择您想要上传的头像</string>
-    <string name="title_activity_immediate_appointment">ImmediateAppointmentActivity</string>
-    <string name="title_activity_show_orders">ShowOrders</string>
+    <string name="openSource">
+        com.sunchen:netstatusbus\n
+        com.zyao89:zloading\n
+        org.commonjava.googlecode.markdown4j:markdown4j\n
+        com.facebook.stetho:stetho\n
+        com.github.bboylin:UniversalToast\n
+        com.facebook.fresco:animated-gif\n
+        com.facebook.fresco:fresco\n
+        com.github.gittjy:LoadingDialog\n
+        io.github.rockerhieu:emojicon\n
+        com.github.LuckSiege.PictureSelector:picture_library\n
+        com.android.support:design\n
+        com.nineoldandroids:library\n
+        com.zhy:okhttputils\n
+        com.squareup.okhttp3:okhttp\n
+        com.squareup.okio:okio\n
+        com.alibaba:fastjson:1.1.56.android\n
+        com.vise.xiaoyaoyou:viselog\n
+        com.github.bumptech.glide:glide:4.0.0-RC1\n
+        com.github.bumptech.glide:okhttp3-integration:1.5.0@aar\n
+        com.github.bumptech.glide:okhttp3-integration\n
+        com.scwang.smartrefresh:SmartRefreshLayout\n
+        org.greenrobot:eventbus\n
+        com.google.code.gson:gson\n
+        com.squareup.okhttp3:okhttp\n
+        com.daimajia.swipelayout:library:1.2.0@aar\n
+        com.squareup.picasso:picasso\n
+        com.open_sdk_r6137_lite\n
+        liji.library.dev:citypickerviewn
+        pub.devrel:easypermissions\n
+        annotationProcessor com.github.bumptech.glide:compiler\n
+        pl.droidsonroids.gif:android-gif-drawable:1.2.6jcore-android-2.1.6.jar)\n
+        jpush-android
+    </string>
 </resources>

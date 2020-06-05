@@ -69,6 +69,7 @@ public class SearchRubblishActivity extends AppCompatActivity {
     private ListView hotItemListView;
     private HotSearchAdapter hotSearchAdapter;
     private OkHttpClient okHttpClient;
+    private ImageView ivFinish;
     private List<Rubbish> rubbishList = null;
     private Handler mHandler = new Handler() {
         @Override
@@ -94,6 +95,7 @@ public class SearchRubblishActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        ivFinish = findViewById(R.id.search_finish);
         //搜索框
         searchView = findViewById(R.id.view_search);
         mAutoCompleteTextView = searchView.findViewById(R.id.search_src_text);
@@ -147,6 +149,12 @@ public class SearchRubblishActivity extends AppCompatActivity {
      * 设置搜索文本监听
      **/
     private void setListener() {
+        ivFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             //当点击搜索按钮时触发该方法
             @Override

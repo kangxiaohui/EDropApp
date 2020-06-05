@@ -62,7 +62,7 @@ public class FriendListFragment extends EaseContactListFragment {
     protected void initView() {
         super.initView();
         //布局显示
-        titleBar.setLeftImageResource(R.drawable.left);
+        titleBar.setLeftImageResource(R.drawable.whiteleft);
         titleBar.setBackgroundColor(getResources().getColor(R.color.color_green));
 
         //添加头布局

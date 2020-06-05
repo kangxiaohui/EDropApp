@@ -2,8 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/size_20"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="#32BA88" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#32BA88"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_about_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/size_10"
+            android:src="@drawable/whiteleft" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/size_30"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="简介"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_18" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,17 +42,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/size_20"
+            android:layout_marginTop="@dimen/size_10"
+            android:layout_marginLeft="@dimen/size_20"
+            android:layout_marginRight="@dimen/size_20"
+            android:layout_marginBottom="@dimen/size_20"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_30"
-                android:text="简介"
-                android:textColor="#000066"
-                android:textSize="@dimen/size_25"
-                android:textStyle="bold" />
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/size_30"-->
+            <!--android:text="简介"-->
+            <!--android:textColor="#000066"-->
+            <!--android:textSize="@dimen/size_25"-->
+            <!--android:textStyle="bold" />-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -51,10 +83,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:lineSpacingExtra="@dimen/size_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_10"
+                android:lineSpacingExtra="@dimen/size_5"
                 android:text="\t\t\t\t具有智能识别和图像处理功能，实时对不清楚的垃圾分类拍照上传到服务器，服务器自动获取解析图像，通过识别图像处理算法，准确返回图像的分类信息，提高分类的正确率，大大降低了自己分类和其他环节所造成的失误率。"
                 android:textSize="@dimen/size_18" />
 
@@ -67,10 +99,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:lineSpacingExtra="@dimen/size_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_10"
+                android:lineSpacingExtra="@dimen/size_5"
                 android:text="\t\t\t\t辅助预约系统，采用智能输入和网络传输技术，实现用户根据自己的时间自主预约，无需人工二次操作，即可大大节省人工成本，提高工作效率，也可解决因人工录入导致的数据错误。"
                 android:textSize="@dimen/size_18" />
 
@@ -83,10 +115,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:lineSpacingExtra="@dimen/size_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_10"
+                android:lineSpacingExtra="@dimen/size_5"
                 android:text="\t\t\t\t具有完整的垃圾分类查询数据库，可实时对不熟悉的垃圾查询。"
                 android:textSize="@dimen/size_18" />
 
@@ -99,10 +131,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:lineSpacingExtra="@dimen/size_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_10"
+                android:lineSpacingExtra="@dimen/size_5"
                 android:text="\t\t\t\t利用大数据技术，后台大数据技术可以实时爬取自动获取当前最新最热的垃圾分类信息，后台再进行数据库的更新。无需任何人工成本，完全自动化进行，让易扔后台系统获得相关垃圾分类数据，便于管理。"
                 android:textSize="@dimen/size_18" />
 
@@ -115,10 +147,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:lineSpacingExtra="@dimen/size_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_10"
+                android:lineSpacingExtra="@dimen/size_5"
                 android:text="\t\t\t\t利用现代信息技术，实现了预约订单进度的实时跟踪、查询功能。同时，为垃圾分类提供了互联网数据接口，让您的客户及时通过网络查询订单进度和订单单详情。"
                 android:textSize="@dimen/size_18" />
 
@@ -131,10 +163,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:lineSpacingExtra="@dimen/size_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_10"
+                android:lineSpacingExtra="@dimen/size_5"
                 android:text="\t\t\t\t人性化模拟垃圾回收流程，功能齐全，易用，无需学习，打开即用，操作简单方便！"
                 android:textSize="@dimen/size_18" />
 
