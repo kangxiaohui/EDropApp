@@ -137,7 +137,49 @@
 
 ### 后台管理系统
 
-1. 
-2. 
-3. 
-4. 
+略
+
+### 项目展示PPT
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片1.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片2.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片3.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片4.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片5.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片6.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片7.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片8.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片9.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片10.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片11.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片12.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片13.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片14.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片15.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片16.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片17.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片21.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片22.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片18.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片19.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片20.JPG)
