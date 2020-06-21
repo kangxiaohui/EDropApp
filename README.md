@@ -1,10 +1,16 @@
 # EDrop
 
+<a href="https://gitee.com/LYmystery/EDropApp" title="立即跳转到gitee">立即跳转到gitee</a>
+
+<font color='red' size=72>
+项目体验网址：https://wwa.lanzous.com/b0aqeodib  密码:90rv
+</font>
+
 ## 项目背景
 
 	    现如今，人们生活水平不断提高，产生的垃圾也越来越多，而进行垃圾分类管理能将这些垃圾转化为新能源，同时能让这些垃圾得到有效的处理，这样能减少对土壤的危害性，同时还能防止出现污染空气的现象。
 	
-	     在生活中的垃圾无处不在，可将这些垃圾划分为不等的类别，其中主要是将这些垃圾分为可回收垃圾、有害垃圾、厨余垃圾、其它垃圾等，这样能将这些垃圾得到有效的处理，也可以针对于不同的垃圾采用不同的处理方式。通过对垃圾进行分类管理，能最大限度的实现垃圾资源回收利用，同时减少垃圾处理的数量，可以通过垃圾费分类再进行人工处理转化为新能源。
+	    在生活中的垃圾无处不在，可将这些垃圾划分为不等的类别，其中主要是将这些垃圾分为可回收垃圾、有害垃圾、厨余垃圾、其它垃圾等，这样能将这些垃圾得到有效的处理，也可以针对于不同的垃圾采用不同的处理方式。通过对垃圾进行分类管理，能最大限度的实现垃圾资源回收利用，同时减少垃圾处理的数量，可以通过垃圾费分类再进行人工处理转化为新能源。
 	
 	    同时在生活中很多垃圾都不是能进行自行分解的，从而产生很多的有毒物质，这样会给土壤进行严重的污染，从而导致农产物的产量逐渐下降，也一定的导致动物出现死亡的现象，进行分类处理能有效的减少危害性。
 
@@ -137,7 +143,49 @@
 
 ### 后台管理系统
 
-1. 
-2. 
-3. 
-4. 
+略
+
+### 项目展示PPT
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片1.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片2.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片3.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片4.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片5.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片6.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片7.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片8.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片9.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片10.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片11.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片12.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片13.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片14.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片15.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片16.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片17.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片21.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片22.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片18.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片19.JPG)
+
+![](https://gitee.com/LYmystery/PicGo/raw/master/image/幻灯片20.JPG)

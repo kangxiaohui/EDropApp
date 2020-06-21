@@ -20,7 +20,7 @@
                 <ImageView
                     android:id="@+id/personal_back"
                     android:onClick="onPersonalClick"
-                    android:src="@drawable/left"
+                    android:src="@drawable/whiteleft"
                     android:layout_marginTop="20dp"
                     android:layout_width="50dp"
                     android:layout_height="50dp" />
@@ -40,7 +40,6 @@
                 android:id="@+id/change_head_img"
                 android:layout_alignRight="@+id/head"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/qq"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="190dp"

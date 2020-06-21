@@ -14,13 +14,6 @@ import net.edrop.edrop_user.utils.SystemTransUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by 李诗凡.
- * User: sifannnn
- * Date: 2019/12/9
- * Time: 14:33
- * TODO：反馈的详细类别选项页面
- */
 public class FeedBackOptionActivity extends AppCompatActivity {
     private ListView listView;
     private ImageView imageView;

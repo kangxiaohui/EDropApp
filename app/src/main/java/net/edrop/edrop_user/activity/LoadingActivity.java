@@ -131,7 +131,6 @@ public class LoadingActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String success = response.body().string();
-//                Log.e("11111", success);
                 byte[] buf = new byte[1024];
                 buf=Bitmap2Bytes(bitmap);
                 Intent intent = new Intent(LoadingActivity.this,RecognitionResultActivity.class);

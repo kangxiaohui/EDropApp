@@ -8,12 +8,12 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:background="#32BA88" />
+        android:background="@color/color_green" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#fff">
+        android:background="@color/color_green">
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,8 +21,8 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="场景"
-            android:textColor="#707070"
-            android:textSize="60px" />
+            android:textColor="#E6E6FA"
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/iv_feedback_option_back"
@@ -31,7 +31,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:src="@drawable/setting_left" />
+            android:src="@drawable/whiteleft" />
 
     </RelativeLayout>
 

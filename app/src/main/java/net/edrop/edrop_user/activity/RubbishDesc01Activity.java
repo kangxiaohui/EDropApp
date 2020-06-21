@@ -28,13 +28,6 @@ public class RubbishDesc01Activity extends BaseActivity {
         new SystemTransUtil().trans(RubbishDesc01Activity.this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rubbish_desc01);
-        ImageView iv = findViewById(R.id.iv_rubbish_1);
-        iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     @NetSubscribe(mode = Mode.NONE)

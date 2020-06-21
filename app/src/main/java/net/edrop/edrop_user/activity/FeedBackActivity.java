@@ -58,13 +58,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import xyz.bboylin.universialtoast.UniversalToast;
 
-/**
- * Created by 李诗凡.
- * User: sifannnn
- * Date: 2019/12/9
- * Time: 14:24
- * TODO：反馈的页面
- */
 public class FeedBackActivity extends AppCompatActivity implements View.OnClickListener,
         EmojiconGridFragment.OnEmojiconClickedListener, EmojiconsFragment.OnEmojiconBackspaceClickedListener {
     // EmojiconTextView继承自AppCompatTextView，而AppCompatTextView继承自TextView

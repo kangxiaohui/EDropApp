@@ -14,12 +14,5 @@ public class RubbishDesc03Activity extends AppCompatActivity {
         new SystemTransUtil().trans(RubbishDesc03Activity.this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rubbish_desc03);
-        ImageView iv = findViewById(R.id.iv_rubbish_3);
-        iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 }

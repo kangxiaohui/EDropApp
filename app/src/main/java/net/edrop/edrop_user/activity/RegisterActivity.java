@@ -3,6 +3,7 @@ package net.edrop.edrop_user.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.AutoText;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import com.hyphenate.exceptions.HyphenateException;
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.model.Model;
 import net.edrop.edrop_user.utils.Constant;
+import net.edrop.edrop_user.utils.MarqueeText;
 import net.edrop.edrop_user.utils.SystemTransUtil;
 
 import org.json.JSONException;
@@ -39,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
     private OkHttpClient okHttpClient;
     private String registName;
     private String registPwd;
+    private MarqueeText auto_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initView();
+        auto_text.startFor0();
         setLinstener();
         //1.创建OkHttpClient对象
         okHttpClient = new OkHttpClient();
@@ -60,6 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
         etPsd = findViewById(R.id.et_regPsd);
         etPsd2 = findViewById(R.id.et_regPsd2);
         btnReg = findViewById(R.id.btn_reg);
+        auto_text = findViewById(R.id.auto_text);
     }
 
     private class MyListener implements View.OnClickListener {

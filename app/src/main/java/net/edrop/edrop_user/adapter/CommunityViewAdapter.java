@@ -30,6 +30,9 @@ import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.zyao89.view.zloading.ZLoadingDialog;
+import com.zyao89.view.zloading.Z_TYPE;
+
 import net.edrop.edrop_user.R;
 import net.edrop.edrop_user.activity.ArticleDetailCommentActivity;
 import net.edrop.edrop_user.activity.ArticleDetailsActivity;
@@ -187,20 +190,35 @@ public class CommunityViewAdapter extends RecyclerView.Adapter<CommunityViewAdap
                 toShare();
             }
         });
+        final ZLoadingDialog dialog = new ZLoadingDialog(context);
         holder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.setLoadingBuilder(Z_TYPE.DOUBLE_CIRCLE)//设置类型
+                        .setLoadingColor(Color.parseColor("#00FF7F"))
+                        .setHintText("跳转中请稍后...")
+                        .setHintTextColor(Color.GRAY)
+                        .setDialogBackgroundColor(Color.parseColor("#cc111111"))
+                        .show();
                 Intent intent = new Intent(context, ArticleDetailsActivity.class);
                 intent.putExtra("articleId", articles.get(position).getId());
                 context.startActivity(intent);
+                dialog.cancel();
             }
         });
         holder.discussCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.setLoadingBuilder(Z_TYPE.DOUBLE_CIRCLE)//设置类型
+                        .setLoadingColor(Color.parseColor("#00FF7F"))
+                        .setHintText("跳转中请稍后...")
+                        .setHintTextColor(Color.GRAY)
+                        .setDialogBackgroundColor(Color.parseColor("#cc111111"))
+                        .show();
                 Intent intent = new Intent(context, ArticleDetailCommentActivity.class);
                 intent.putExtra("articleId", articles.get(position).getId());
                 context.startActivity(intent);
+                dialog.cancel();
             }
         });
     }

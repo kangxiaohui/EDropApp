@@ -145,7 +145,7 @@ public class CommunityPageFragment extends Fragment {
                     JSONArray jsonArray = new JSONArray(new JSONObject(articleList).getString("articles"));
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        Log.e("article", jsonObject.toString());
+//                        Log.e("article", jsonObject.toString());
                         Article article = new Article();
                         article.setId(Integer.parseInt(jsonObject.getString("article_id")));
                         article.setDiscussCount(jsonObject.getString("comment_counts"));

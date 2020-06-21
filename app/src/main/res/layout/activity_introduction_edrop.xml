@@ -61,11 +61,4 @@
             app:layout_anchorGravity="bottom|right|end" />
     </android.support.design.widget.CoordinatorLayout>
 
-    <ImageView
-        android:id="@+id/iv_introduction_finish"
-        android:layout_width="@dimen/size_30"
-        android:layout_height="@dimen/size_30"
-        android:layout_marginLeft="@dimen/size_10"
-        android:layout_marginTop="@dimen/size_25"
-        android:src="@drawable/whiteleft" />
 </FrameLayout>

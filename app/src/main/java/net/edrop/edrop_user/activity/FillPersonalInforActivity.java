@@ -35,7 +35,6 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -71,6 +70,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import pub.devrel.easypermissions.EasyPermissions;
+import xyz.bboylin.universialtoast.UniversalToast;
 
 import static net.edrop.edrop_user.utils.Constant.BASE_FAIL;
 import static net.edrop.edrop_user.utils.Constant.BASE_SUCCESS;
@@ -148,9 +148,9 @@ public class FillPersonalInforActivity extends AppCompatActivity implements Easy
                 SharedPreferences.Editor editor = sp.getEditor();
                 editor.putString("password", etNewPsd.getText().toString().trim());
                 editor.commit();
-                Toast.makeText(FillPersonalInforActivity.this, msg.obj + "", Toast.LENGTH_SHORT).show();
+                UniversalToast.makeText(FillPersonalInforActivity.this, msg.obj + "", UniversalToast.LENGTH_SHORT).showSuccess();
             } else if (msg.what == PSD_FAIL) {
-                Toast.makeText(FillPersonalInforActivity.this, msg.obj + "", Toast.LENGTH_SHORT).show();
+                UniversalToast.makeText(FillPersonalInforActivity.this, msg.obj + "", UniversalToast.LENGTH_SHORT).showError();
             } else if (msg.what == BASE_SUCCESS) {
                 SharedPreferencesUtils sp = new SharedPreferencesUtils(FillPersonalInforActivity.this, "loginInfo");
                 SharedPreferences.Editor editor = sp.getEditor();
@@ -160,13 +160,13 @@ public class FillPersonalInforActivity extends AppCompatActivity implements Easy
                 editor.putString("address", tvSelect.getText().toString());
                 editor.putString("detailAddress", tvDetailAddress.getText().toString().trim());
                 editor.commit();
-                Toast.makeText(FillPersonalInforActivity.this, msg.obj + "", Toast.LENGTH_SHORT).show();
+                UniversalToast.makeText(FillPersonalInforActivity.this, msg.obj + "", UniversalToast.LENGTH_SHORT).showSuccess();
             } else if (msg.what == BASE_FAIL) {
-                Toast.makeText(FillPersonalInforActivity.this, msg.obj + "", Toast.LENGTH_SHORT).show();
+                UniversalToast.makeText(FillPersonalInforActivity.this, msg.obj + "", UniversalToast.LENGTH_SHORT).showError();
             } else if (msg.what == IMG_SUCCESS) {
-                Toast.makeText(FillPersonalInforActivity.this, msg.obj + "", Toast.LENGTH_SHORT).show();
+                UniversalToast.makeText(FillPersonalInforActivity.this, msg.obj + "", UniversalToast.LENGTH_SHORT).showSuccess();
             } else if (msg.what == IMG_FAIL) {
-                Toast.makeText(FillPersonalInforActivity.this, msg.obj + "", Toast.LENGTH_SHORT).show();
+                UniversalToast.makeText(FillPersonalInforActivity.this, msg.obj + "", UniversalToast.LENGTH_SHORT).showError();
             }
         }
     };
@@ -327,7 +327,7 @@ public class FillPersonalInforActivity extends AppCompatActivity implements Easy
     //用户未同意权限
     @Override
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
-        Toast.makeText(this, "请同意相关权限，否则功能无法使用", Toast.LENGTH_SHORT).show();
+        UniversalToast.makeText(this, "请同意相关权限，否则功能无法使用", UniversalToast.LENGTH_SHORT).showWarning();
     }
 
     @Override
@@ -471,7 +471,7 @@ public class FillPersonalInforActivity extends AppCompatActivity implements Easy
                     if (newPsd.equals(newPsd2)) {
                         postFormPsd();
                     } else {
-                        Toast.makeText(FillPersonalInforActivity.this, "密码不一致", Toast.LENGTH_SHORT).show();
+                        UniversalToast.makeText(FillPersonalInforActivity.this, "密码不一致", UniversalToast.LENGTH_SHORT).showError();
                     }
                     break;
                 case R.id.btnSave:

@@ -1,8 +1,15 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
+apply from: 'and_res_guard.gradle'
 android {
     signingConfigs {
-        config {
+        release {
+            keyAlias 'key0'
+            keyPassword '123456'
+            storeFile file('D:/Android/ProjectLoction/EDropApp/debug.jks')
+            storePassword '123456'
+        }
+        debug {
             keyAlias 'key0'
             keyPassword '123456'
             storeFile file('D:/Android/ProjectLoction/EDropApp/debug.jks')
@@ -17,7 +24,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 4
-        versionName "4.0"
+        versionName "4.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //开启多Dex
         multiDexEnabled true
@@ -36,11 +43,15 @@ android {
     }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false // 是否混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            signingConfig signingConfigs.debug
+        }
     }
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
     sourceSets {
         main {
             jniLibs.srcDir 'libs'

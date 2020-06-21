@@ -48,18 +48,6 @@ public class PersonalCenterManagerActivity extends AppCompatActivity {
     private TextView tvEditInfo;
     private OkHttpClient okHttpClient;
     private SharedPreferencesUtils sharedPreferences;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 888) {
-                RequestOptions options = new RequestOptions().centerCrop();
-                Glide.with(PersonalCenterManagerActivity.this)
-                        .load(msg.obj)
-                        .apply(options)
-                        .into(userImg);
-            }
-        }
-    };
 
     protected void onCreate(Bundle savedInstanceState) {
         new SystemTransUtil().trans(PersonalCenterManagerActivity.this);
@@ -118,10 +106,18 @@ public class PersonalCenterManagerActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Message message = new Message();
-                message.what = 888;
-                message.obj = BASE_URL.substring(0,BASE_URL.length()-1)+imgPath +"/"+ imgName;
-                handler.sendMessage(message);
+                final String finalImgPath = imgPath;
+                final String finalImgName = imgName;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        RequestOptions options = new RequestOptions().centerCrop();
+                        Glide.with(PersonalCenterManagerActivity.this)
+                                .load(BASE_URL.substring(0,BASE_URL.length()-1)+ finalImgPath +"/"+ finalImgName)
+                                .apply(options)
+                                .into(userImg);
+                    }
+                });
             }
         });
     }

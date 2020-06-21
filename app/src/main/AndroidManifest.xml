@@ -96,7 +96,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".activity.LoadingActivity" />
         <activity android:name=".activity.TestPhoneNumActivity" />
-        <activity android:name=".activity.FeedBackActivity" />
+        <activity android:name=".activity.FeedBackActivity" android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity android:name=".activity.FeedBackOptionActivity" />
         <activity android:name=".activity.ImmediateAppointmentActivity" />
         <activity android:name=".activity.ShowOrdersActivity" />

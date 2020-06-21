@@ -61,8 +61,6 @@ public class ImmediateAppointmentActivity extends Activity {
     private OkHttpClient okHttpClient;
     Calendar calendar = Calendar.getInstance(Locale.CHINA);
     private ImageView imgBack;
-
-    //
     private int userId;
     private String realname;
     private String address;
@@ -78,8 +76,6 @@ public class ImmediateAppointmentActivity extends Activity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
-
-
         }
     };
 
