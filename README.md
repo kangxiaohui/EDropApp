@@ -1,11 +1,10 @@
 # EDrop
 
+<a href="https://gitee.com/LYmystery/EDropApp" title="立即跳转到gitee">立即跳转到gitee</a>
+
 <font color='red' size=72>
 项目体验网址：https://wwa.lanzous.com/b0aqeodib  密码:90rv
 </font>
-
-
-<a href="https://gitee.com/LYmystery/EDropApp" title="立即跳转到gitee">立即跳转到gitee</a>
 
 ## 项目背景
 
